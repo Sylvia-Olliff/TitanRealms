@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+license="GNU GPLv3"
+# issueTrackerURL="http://my.issue.tracker/"
+[[mods]]
+modId="titanrealms"
+version="0.1"
+displayName="Titan Realms"
+# updateJSONURL="http://myurl.me/"
+# displayURL="http://example.com/"
+logoFile="examplemod.png"
+credits="Thanks go to TurtyWurty for good videos, McJty for helping with chunk generation, aidancbrady for teaching me good modding structures and practice (and 90% of my code infrastructure), and to my wonderful partner without which none of this would have been possible."
+authors="Sylvantus"
+description='''
+Titan Realms brings to you tales of forgotten worlds, imprisoned deities, ancient terrors, and long since forgotten materials, weapons, and tools.
+
+Some things in the realms are not meant for mortal eyes...
+'''
+
+[[dependencies.titanrealms]]
+    modId="forge"
+    mandatory=true
+    versionRange="[35,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.titanrealms]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.4,1.17)"
+    ordering="NONE"
+    side="BOTH"

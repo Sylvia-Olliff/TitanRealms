@@ -1,0 +1,9 @@
+package sylvantus.titanrealms.core.util.interfaces.blocks;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+
+public interface IHasTileEntity<TILE extends TileEntity> {
+
+    TileEntityType<? extends TILE> getTileType();
+}

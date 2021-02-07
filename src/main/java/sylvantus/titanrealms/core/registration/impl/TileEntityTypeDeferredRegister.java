@@ -1,0 +1,22 @@
+package sylvantus.titanrealms.core.registration.impl;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ForgeRegistries;
+import sylvantus.titanrealms.core.registration.WrappedDeferredRegister;
+
+import java.util.function.Supplier;
+
+public class TileEntityTypeDeferredRegister extends WrappedDeferredRegister<TileEntityType<?>> {
+
+    public TileEntityTypeDeferredRegister(String modid) {
+        super(modid, ForgeRegistries.TILE_ENTITIES);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public <TILE extends TileEntity> TileEntityTypeRegistryObject<TILE> register(BlockRegistryObject<?, ?> block, Supplier<? extends TILE> factory) {
+        //Note: There is no data fixer type as forge does not currently have a way exposing data fixers to mods yet
+        return register(block.getInternalRegistryName(), () -> TileEntityType.Builder.<TILE>create(factory, block.getBlock()).build(null),
+                TileEntityTypeRegistryObject::new);
+    }
+}
