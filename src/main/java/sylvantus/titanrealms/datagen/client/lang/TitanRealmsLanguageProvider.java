@@ -183,8 +183,8 @@ public class TitanRealmsLanguageProvider extends BaseLanguageProvider {
     }
 
     private void addBlocks() {
-        add(TitanRealmsBlocks.AESIR_DIRT, "Aesir Dirt");
-        add(TitanRealmsBlocks.AESIR_DIRT_GRASS, "Aesir Grass Dirt");
+//        add(TitanRealmsBlocks.AESIR_DIRT, "Aesir Dirt");
+//        add(TitanRealmsBlocks.AESIR_DIRT_GRASS, "Aesir Grass Dirt");
     }
 
     private void addItems() {

@@ -1,7 +1,11 @@
 package sylvantus.titanrealms.core.enums;
 
 import mekanism.api.RelativeSide;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.Direction;
+import sylvantus.titanrealms.common.resources.OreType;
+import sylvantus.titanrealms.common.resources.PrimaryResource;
+import sylvantus.titanrealms.common.resources.ResourceType;
 
 public class EnumUtils {
 
@@ -13,5 +17,14 @@ public class EnumUtils {
 
     public static final RelativeSide[] SIDES = RelativeSide.values();
 
+    public static final EquipmentSlotType[] ARMOR_SLOTS = new EquipmentSlotType[]{EquipmentSlotType.HEAD, EquipmentSlotType.CHEST, EquipmentSlotType.LEGS,
+            EquipmentSlotType.FEET};
 
+    public static final OreType[] ORE_TYPES = OreType.values();
+
+    public static final ResourceType[] RESOURCE_TYPES = ResourceType.values();
+
+    public static final PrimaryResource[] PRIMARY_RESOURCES = PrimaryResource.values();
+
+    public static final EquipmentSlotType[] EQUIPMENT_SLOT_TYPES = EquipmentSlotType.values();
 }
