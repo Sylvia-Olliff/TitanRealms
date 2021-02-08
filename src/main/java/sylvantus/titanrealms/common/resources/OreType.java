@@ -3,6 +3,7 @@ package sylvantus.titanrealms.common.resources;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.IStringSerializable;
+import org.lwjgl.system.CallbackI;
 import sylvantus.titanrealms.core.enums.DimensionRestrictions;
 import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 
@@ -13,7 +14,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public enum OreType implements IStringSerializable {
-    COPPER(PrimaryResource.COPPER, 16, 8, 0, 0, 60);
+    COPPER(PrimaryResource.COPPER, 16, 8, 0, 0, 60),
+    ALLARUM(PrimaryResource.ALLARUM, 10, 4, 8, 0, 120, DimensionRestrictions.TR_DIMENSIONS),
+    AESIRITE(PrimaryResource.AESIRITE, 4, 3, 0, 0, 120, DimensionRestrictions.AESIR),
+    HELUMITE(PrimaryResource.HELUMITE, 4, 3, 0, 0, 16, DimensionRestrictions.HEL);
 
     public static Codec<OreType> CODEC = IStringSerializable.createEnumCodec(OreType::values, OreType::byName);
     private static final Map<String, OreType> NAME_LOOKUP = Arrays.stream(values()).collect(Collectors.toMap(OreType::getString, oreType -> oreType));

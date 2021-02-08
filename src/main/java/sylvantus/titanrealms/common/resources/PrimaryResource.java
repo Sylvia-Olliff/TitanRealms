@@ -12,7 +12,10 @@ import java.util.function.Supplier;
 public enum PrimaryResource implements IResource {
     IRON("iron", 0xFFAF8E77, Tags.Items.ORES_IRON),
     GOLD("gold", 0xFFF2CD67, Tags.Items.ORES_GOLD),
-    COPPER("copper", 0xFFAA4B19, () -> TitanRealmsTags.Items.ORES.get(OreType.COPPER), BlockResourceInfo.COPPER)
+    COPPER("copper", 0xFFAA4B19, () -> TitanRealmsTags.Items.ORES.get(OreType.COPPER), BlockResourceInfo.COPPER),
+    ALLARUM("allarum", 0xFFC58C76, () -> TitanRealmsTags.Items.ORES.get(OreType.ALLARUM), BlockResourceInfo.ALLARUM),
+    AESIRITE("aesirite", 0xFFB4A391, () -> TitanRealmsTags.Items.ORES.get(OreType.AESIRITE), BlockResourceInfo.AESIRITE),
+    HELUMITE("helumite", 0xFF302A23, () -> TitanRealmsTags.Items.ORES.get(OreType.HELUMITE), BlockResourceInfo.HELUMITE);
 
 
     private final String name;

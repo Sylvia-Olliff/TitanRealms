@@ -4,7 +4,8 @@ public enum ResourceType {
     DUST("dust"),
     INGOT("ingot"),
     NUGGET("nugget"),
-    INFUSED("infused", "infused");
+    INFUSED("infused", "infused"),
+    REFINED("refined", "refined");
 
     private final String registryPrefix;
     private final String pluralPrefix;
@@ -28,6 +29,6 @@ public enum ResourceType {
 
     public boolean usedByPrimary() {
         // TODO: Not sure why this delineation is used in Mekanism
-        return true;
+        return this != INFUSED && this != REFINED;
     }
 }
