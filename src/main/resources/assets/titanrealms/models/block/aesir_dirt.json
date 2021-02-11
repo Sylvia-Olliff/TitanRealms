@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube",
-  "textures": {
-    "all": "titanrealms:block/aesir_dirt"
-  }
-}

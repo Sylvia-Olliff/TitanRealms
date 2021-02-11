@@ -79,6 +79,8 @@ public abstract class TitanRealmsBlock extends Block {
         return itemStack;
     }
 
+
+
     @Override
     public boolean hasTileEntity(BlockState state) {
         return this instanceof IHasTileEntity;

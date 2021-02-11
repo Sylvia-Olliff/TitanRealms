@@ -31,14 +31,14 @@ public class TitanRealmsTags {
                 for (ResourceType type : EnumUtils.RESOURCE_TYPES) {
                     if (type.usedByPrimary()) {
                         if (type == ResourceType.INGOT || type == ResourceType.NUGGET || type == ResourceType.DUST) {
-                            PROCESSED_RESOURCES.put(type, resource, forgeTag(type.getPluralPrefix() + "/" + resource.getName()));
+                            PROCESSED_RESOURCES.put(type, resource, forgeTag(type.getPluralPrefix() + "/" + resource.name()));
                         } else {
-                            PROCESSED_RESOURCES.put(type, resource, tag(type.getPluralPrefix() + "/" + resource.getName()));
+                            PROCESSED_RESOURCES.put(type, resource, tag(type.getPluralPrefix() + "/" + resource.name()));
                         }
                     }
                 }
                 if (!resource.isVanilla()) {
-                    PROCESSED_RESOURCE_BLOCKS.put(resource, forgeTag("storage_blocks/" + resource.getName()));
+                    PROCESSED_RESOURCE_BLOCKS.put(resource, forgeTag("storage_blocks/" + resource.name()));
                 }
             }
             for (OreType ore : EnumUtils.ORE_TYPES) {
