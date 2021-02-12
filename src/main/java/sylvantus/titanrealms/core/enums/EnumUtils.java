@@ -3,9 +3,7 @@ package sylvantus.titanrealms.core.enums;
 import mekanism.api.RelativeSide;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.Direction;
-import sylvantus.titanrealms.common.resources.OreType;
-import sylvantus.titanrealms.common.resources.PrimaryResource;
-import sylvantus.titanrealms.common.resources.ResourceType;
+import sylvantus.titanrealms.common.resources.*;
 
 public class EnumUtils {
 
@@ -25,6 +23,10 @@ public class EnumUtils {
     public static final ResourceType[] RESOURCE_TYPES = ResourceType.values();
 
     public static final PrimaryResource[] PRIMARY_RESOURCES = PrimaryResource.values();
+
+    public static final TerrainResource[] TERRAIN_RESOURCES = TerrainResource.values();
+
+    public static final TerrainType[] TERRAIN_TYPES = TerrainType.values();
 
     public static final EquipmentSlotType[] EQUIPMENT_SLOT_TYPES = EquipmentSlotType.values();
 }

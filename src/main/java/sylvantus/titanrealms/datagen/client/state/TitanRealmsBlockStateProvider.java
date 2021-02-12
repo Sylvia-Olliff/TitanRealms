@@ -5,6 +5,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
+import sylvantus.titanrealms.common.resources.TerrainResource;
+import sylvantus.titanrealms.common.resources.TerrainType;
 import sylvantus.titanrealms.core.registration.impl.BlockRegistryObject;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
 import sylvantus.titanrealms.datagen.client.model.TitanRealmsBlockModelProvider;
@@ -22,7 +24,12 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
         ResourceLocation basicCube = modLoc("block/basic_cube");
 
-//        // blocks
+        // terrain items
+        for (Map.Entry<TerrainType, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.TERRAIN.entrySet()) {
+            models().withExistingParent("item/block_" + entry.getKey().getTerrain().getRegistrySuffix(), modLoc("block/" + entry.getKey().getTerrain().getRegistrySuffix()));
+            // .texture("all", modLoc("block/block_" + entry.getKey().getTerrain().getRegistrySuffix()));
+        }
+//        // resource blocks
 //        for (Map.Entry<PrimaryResource, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.PROCESSED_RESOURCE_BLOCKS.entrySet()) {
 //            ResourceLocation texture = modLoc("block/block_" + entry.getKey().getName());
 //            ModelFile file;

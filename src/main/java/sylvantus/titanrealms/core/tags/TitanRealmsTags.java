@@ -6,9 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
 import sylvantus.titanrealms.TitanRealms;
-import sylvantus.titanrealms.common.resources.OreType;
-import sylvantus.titanrealms.common.resources.PrimaryResource;
-import sylvantus.titanrealms.common.resources.ResourceType;
+import sylvantus.titanrealms.common.resources.*;
 import sylvantus.titanrealms.core.enums.EnumUtils;
 
 import java.util.EnumMap;
@@ -25,6 +23,7 @@ public class TitanRealmsTags {
         public static final Table<ResourceType, PrimaryResource, INamedTag<Item>> PROCESSED_RESOURCES = HashBasedTable.create();
         public static final Map<PrimaryResource, INamedTag<Item>> PROCESSED_RESOURCE_BLOCKS = new EnumMap<>(PrimaryResource.class);
         public static final Map<OreType, INamedTag<Item>> ORES = new EnumMap<>(OreType.class);
+        public static final Map<TerrainType, INamedTag<Item>> TERRAIN = new EnumMap<>(TerrainType.class);
 
         static {
             for (PrimaryResource resource : EnumUtils.PRIMARY_RESOURCES) {
@@ -43,6 +42,9 @@ public class TitanRealmsTags {
             }
             for (OreType ore : EnumUtils.ORE_TYPES) {
                 ORES.put(ore, forgeTag("ores/" + ore.getResource().getRegistrySuffix()));
+            }
+            for (TerrainType terrainType : EnumUtils.TERRAIN_TYPES) {
+                TERRAIN.put(terrainType, forgeTag("block/" + terrainType.getTerrain().getRegistrySuffix()));
             }
         }
 

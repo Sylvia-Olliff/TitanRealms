@@ -1,6 +1,5 @@
 {
-  "block.titanrealms.aesir_dirt": "Aesir Dirt",
-  "block.titanrealms.aesir_dirt_grass": "Aesir Grass Dirt",
+  "block.titanrealms.block_aesir_stone": "Aesir Stone",
   "boolean.titanrealms.active": "Active",
   "boolean.titanrealms.disabled": "Disabled",
   "boolean.titanrealms.input": "Input",

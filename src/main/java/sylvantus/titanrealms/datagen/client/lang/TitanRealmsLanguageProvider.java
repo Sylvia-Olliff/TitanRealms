@@ -3,6 +3,7 @@ package sylvantus.titanrealms.datagen.client.lang;
 import mekanism.api.text.EnumColor;
 import net.minecraft.data.DataGenerator;
 import sylvantus.titanrealms.TitanRealms;
+import sylvantus.titanrealms.common.resources.TerrainType;
 import sylvantus.titanrealms.core.TitanRealmsLang;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
 
@@ -183,8 +184,7 @@ public class TitanRealmsLanguageProvider extends BaseLanguageProvider {
     }
 
     private void addBlocks() {
-//        add(TitanRealmsBlocks.AESIR_DIRT, "Aesir Dirt");
-//        add(TitanRealmsBlocks.AESIR_DIRT_GRASS, "Aesir Grass Dirt");
+        add(TitanRealmsBlocks.TERRAIN.get(TerrainType.AESIR_STONE), "Aesir Stone");
     }
 
     private void addItems() {

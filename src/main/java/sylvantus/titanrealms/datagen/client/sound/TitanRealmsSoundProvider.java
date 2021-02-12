@@ -29,6 +29,6 @@ public class TitanRealmsSoundProvider extends BaseSoundProvider {
 
     private void addGuiSoundEvents() {
         String basePath = "gui/";
-        addSoundEvent(TitanRealmsSounds.BEEP, TitanRealms.rl(basePath + "beep"));
+        //addSoundEvent(TitanRealmsSounds.BEEP, TitanRealms.rl(basePath + "beep"));
     }
 }

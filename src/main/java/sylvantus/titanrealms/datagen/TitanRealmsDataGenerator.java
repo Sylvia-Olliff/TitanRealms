@@ -11,6 +11,7 @@ import sylvantus.titanrealms.datagen.client.lang.TitanRealmsLanguageProvider;
 import sylvantus.titanrealms.datagen.client.model.TitanRealmsItemModelProvider;
 import sylvantus.titanrealms.datagen.client.sound.TitanRealmsSoundProvider;
 import sylvantus.titanrealms.datagen.client.state.TitanRealmsBlockStateProvider;
+import sylvantus.titanrealms.datagen.common.loot.TitanRealmsLootProvider;
 
 @EventBusSubscriber(modid = TitanRealms.MODID, bus = Bus.MOD)
 public class TitanRealmsDataGenerator {
@@ -32,7 +33,7 @@ public class TitanRealmsDataGenerator {
         if (event.includeServer()) {
             //Server side data generators
 //            gen.addProvider(new TitanRealmsTagProvider(gen, existingFileHelper));
-//            gen.addProvider(new TitanRealmsLootProvider(gen));
+            gen.addProvider(new TitanRealmsLootProvider(gen));
 //            gen.addProvider(new TitanRealmsRecipeProvider(gen));
         }
     }
