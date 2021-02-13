@@ -12,7 +12,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public enum TerrainType implements IStringSerializable {
-    AESIR_STONE(TerrainResource.AESIR_STONE, DimensionRestrictions.AESIR);
+    AESIR_STONE(TerrainResource.AESIR_STONE, DimensionRestrictions.AESIR),
+    BLASTED_MARBLE(TerrainResource.BLASTED_MARBLE, DimensionRestrictions.AESIR),
+    BLASTED_STONE(TerrainResource.BLASTED_STONE, DimensionRestrictions.AESIR),
+    BLASTED_GLASS(TerrainResource.BLASTED_GLASS, DimensionRestrictions.AESIR);
+    //TITANFORGED_STONE(TerrainResource.TITANFORGED_STONE, DimensionRestrictions.AESIR);
 
     public static Codec<TerrainType> CODEC = IStringSerializable.createEnumCodec(TerrainType::values, TerrainType::byName);
 

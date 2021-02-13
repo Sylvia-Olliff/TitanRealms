@@ -1,5 +1,8 @@
 {
   "block.titanrealms.block_aesir_stone": "\u01DDuo\u0287S \u0279\u1D09s\u01DD\u2C6F",
+  "block.titanrealms.block_blasted_glass": "ss\u0250\uA781\u2141 p\u01DD\u0287s\u0250\uA781\u15FA",
+  "block.titanrealms.block_blasted_marble": "\u01DD\uA781q\u0279\u0250W p\u01DD\u0287s\u0250\uA781\u15FA",
+  "block.titanrealms.block_blasted_stone": "\u01DDuo\u0287S p\u01DD\u0287s\u0250\uA781\u15FA",
   "boolean.titanrealms.active": "\u01DD\u028C\u1D09\u0287\u0254\u2C6F",
   "boolean.titanrealms.disabled": "p\u01DD\uA781q\u0250s\u1D09\u15E1",
   "boolean.titanrealms.input": "\u0287nduI",

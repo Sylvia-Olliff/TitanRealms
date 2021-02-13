@@ -27,7 +27,6 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         // terrain items
         for (Map.Entry<TerrainType, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.TERRAIN.entrySet()) {
             models().withExistingParent("item/block_" + entry.getKey().getTerrain().getRegistrySuffix(), modLoc("block/" + entry.getKey().getTerrain().getRegistrySuffix()));
-            // .texture("all", modLoc("block/block_" + entry.getKey().getTerrain().getRegistrySuffix()));
         }
 //        // resource blocks
 //        for (Map.Entry<PrimaryResource, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.PROCESSED_RESOURCE_BLOCKS.entrySet()) {

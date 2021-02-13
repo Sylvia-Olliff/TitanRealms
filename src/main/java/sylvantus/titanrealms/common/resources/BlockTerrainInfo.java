@@ -5,16 +5,22 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraftforge.common.ToolType;
+import sylvantus.titanrealms.core.enums.HarvestLevel;
 import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 
 import javax.annotation.Nullable;
 
 public enum BlockTerrainInfo implements IResource {
-    AESIR_STONE("aesir_stone", 5, 6, 1, 7, false, true, ToolType.PICKAXE);
+    AESIR_STONE("aesir_stone", 5, 6, HarvestLevel.STONE.getLevel(), 7, false, true, ToolType.PICKAXE),
+    BLASTED_MARBLE("blasted_marble", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
+    BLASTED_STONE("blasted_stone", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
+    BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true);
+    // TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE);
 
     private final String registrySuffix;
     private final boolean burnsInFire;
     private final boolean requiresTool;
+    private final boolean isTransparent;
     private final float resistance;
     private final float hardness;
     private final int lightValue;
@@ -35,6 +41,10 @@ public enum BlockTerrainInfo implements IResource {
     }
 
     BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire, boolean requiresTool, @Nullable ToolType requiredTool) {
+        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, burnsInFire, requiresTool, requiredTool, false);
+    }
+
+    BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire, boolean requiresTool, @Nullable ToolType requiredTool, boolean isTransparent) {
         this.registrySuffix = registrySuffix;
         this.hardness = hardness;
         this.resistance = resistance;
@@ -43,6 +53,7 @@ public enum BlockTerrainInfo implements IResource {
         this.burnsInFire = burnsInFire;
         this.requiresTool = requiresTool;
         this.requiredTool = requiredTool;
+        this.isTransparent = isTransparent;
     }
 
     @Override
@@ -64,11 +75,14 @@ public enum BlockTerrainInfo implements IResource {
 
     public boolean requiresTool() { return requiresTool; }
 
+    @Nullable
     public ToolType getRequiredTool() { return requiredTool; }
 
     public int getLightValue() {
         return lightValue;
     }
+
+    public boolean isTransparent() { return isTransparent; }
 
     public boolean isPortalFrame() {
         return false;
