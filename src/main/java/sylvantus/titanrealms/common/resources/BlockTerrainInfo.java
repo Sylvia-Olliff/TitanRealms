@@ -14,8 +14,8 @@ public enum BlockTerrainInfo implements IResource {
     AESIR_STONE("aesir_stone", 5, 6, HarvestLevel.STONE.getLevel(), 7, false, true, ToolType.PICKAXE),
     BLASTED_MARBLE("blasted_marble", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
     BLASTED_STONE("blasted_stone", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
-    BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true);
-    // TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE);
+    BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true),
+    TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE);
 
     private final String registrySuffix;
     private final boolean burnsInFire;

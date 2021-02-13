@@ -188,7 +188,7 @@ public class TitanRealmsLanguageProvider extends BaseLanguageProvider {
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE), "Blasted Marble");
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_STONE), "Blasted Stone");
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_GLASS), "Blasted Glass");
-        // add(TitanRealmsBlocks.TERRAIN.get(TerrainType.TITANFORGED_STONE), "Titanforged Stone");
+        add(TitanRealmsBlocks.TERRAIN.get(TerrainType.TITANFORGED_STONE), "Titanforged Stone");
     }
 
     private void addItems() {

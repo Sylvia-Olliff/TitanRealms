@@ -11,8 +11,8 @@ public enum TerrainResource implements IResource {
     AESIR_STONE("aesir_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.AESIR_STONE), BlockTerrainInfo.AESIR_STONE),
     BLASTED_MARBLE("blasted_marble", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_MARBLE), BlockTerrainInfo.BLASTED_MARBLE),
     BLASTED_STONE("blasted_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_STONE), BlockTerrainInfo.BLASTED_STONE),
-    BLASTED_GLASS("blasted_glass", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_GLASS), BlockTerrainInfo.BLASTED_GLASS);
-    // TITANFORGED_STONE("titanforged_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.TITANFORGED_STONE), BlockTerrainInfo.TITANFORGED_STONE);
+    BLASTED_GLASS("blasted_glass", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_GLASS), BlockTerrainInfo.BLASTED_GLASS),
+    TITANFORGED_STONE("titanforged_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.TITANFORGED_STONE), BlockTerrainInfo.TITANFORGED_STONE);
 
     private final String name;
     private final int tint;

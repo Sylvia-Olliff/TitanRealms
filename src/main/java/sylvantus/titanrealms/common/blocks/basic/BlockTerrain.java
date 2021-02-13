@@ -40,38 +40,32 @@ public class BlockTerrain extends TitanRealmsBlock {
         return terrainInfo.isPortalFrame();
     }
 
-//    @Override
-//    @Deprecated
-//    public boolean isTransparent(BlockState state) {
-//        return this.terrainInfo.isTransparent() || super.isTransparent(state);
-//    }
+    @Override
+    @Deprecated
+    @OnlyIn(Dist.CLIENT)
+    public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
+        if (this.terrainInfo.isTransparent()) {
+            return adjacentBlockState.isIn(this) || super.isSideInvisible(state, adjacentBlockState, side);
+        } else {
+            return super.isSideInvisible(state, adjacentBlockState, side);
+        }
+    }
 
-//    @Override
-//    @Deprecated
-//    @OnlyIn(Dist.CLIENT)
-//    public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-//        if (this.terrainInfo.isTransparent()) {
-//            return adjacentBlockState.isIn(this) || super.isSideInvisible(state, adjacentBlockState, side);
-//        } else {
-//            return super.isSideInvisible(state, adjacentBlockState, side);
-//        }
-//    }
+    @Override
+    @Deprecated
+    @OnlyIn(Dist.CLIENT)
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return this.terrainInfo.isTransparent() ? 1.0F : super.getAmbientOcclusionLightValue(state, worldIn, pos);
+    }
 
-//    @Override
-//    @Deprecated
-//    @OnlyIn(Dist.CLIENT)
-//    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-//        return this.terrainInfo.isTransparent() ? 1.0F : super.getAmbientOcclusionLightValue(state, worldIn, pos);
-//    }
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return this.terrainInfo.isTransparent() || super.propagatesSkylightDown(state, reader, pos);
+    }
 
-//    @Override
-//    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-//        return this.terrainInfo.isTransparent() || super.propagatesSkylightDown(state, reader, pos);
-//    }
-
-//    @Override
-//    @Deprecated
-//    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-//        return this.terrainInfo.isTransparent() ? VoxelShapes.empty() : super.getRayTraceShape(state, reader, pos, context);
-//    }
+    @Override
+    @Deprecated
+    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+        return this.terrainInfo.isTransparent() ? VoxelShapes.empty() : super.getRayTraceShape(state, reader, pos, context);
+    }
 }
