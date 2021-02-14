@@ -16,7 +16,11 @@ public enum TerrainType implements IStringSerializable {
     BLASTED_MARBLE(TerrainResource.BLASTED_MARBLE, DimensionRestrictions.AESIR),
     BLASTED_STONE(TerrainResource.BLASTED_STONE, DimensionRestrictions.AESIR),
     BLASTED_GLASS(TerrainResource.BLASTED_GLASS, DimensionRestrictions.AESIR),
-    TITANFORGED_STONE(TerrainResource.TITANFORGED_STONE, DimensionRestrictions.AESIR);
+    TITANFORGED_STONE(TerrainResource.TITANFORGED_STONE, DimensionRestrictions.AESIR),
+    SPARSE_CLOUD_SOIL(TerrainResource.SPARSE_CLOUD_SOIL, DimensionRestrictions.AESIR),
+    CLOUD_SOIL(TerrainResource.CLOUD_SOIL, DimensionRestrictions.AESIR),
+    DENSE_CLOUD_SOIL(TerrainResource.DENSE_CLOUD_SOIL, DimensionRestrictions.AESIR);
+
 
     public static Codec<TerrainType> CODEC = IStringSerializable.createEnumCodec(TerrainType::values, TerrainType::byName);
 

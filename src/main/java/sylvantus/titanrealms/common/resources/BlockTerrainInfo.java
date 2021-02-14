@@ -15,14 +15,19 @@ public enum BlockTerrainInfo implements IResource {
     BLASTED_MARBLE("blasted_marble", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
     BLASTED_STONE("blasted_stone", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
     BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true),
-    TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE);
+    TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
+    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 2, 3, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 1),
+    CLOUD_SOIL("cloud_soil", 3, 4, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 2),
+    DENSE_CLOUD_SOIL("cloud_soil_dense", 4, 5, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 3);
 
     private final String registrySuffix;
     private final boolean burnsInFire;
     private final boolean requiresTool;
     private final boolean isTransparent;
+    private final boolean isSoil;
     private final float resistance;
     private final float hardness;
+    private final int soilBonus;
     private final int lightValue;
     private final int harvestLevel;
     @Nullable
@@ -45,6 +50,10 @@ public enum BlockTerrainInfo implements IResource {
     }
 
     BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire, boolean requiresTool, @Nullable ToolType requiredTool, boolean isTransparent) {
+        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, burnsInFire, requiresTool, requiredTool, isTransparent, false, 0);
+    }
+
+    BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire, boolean requiresTool, @Nullable ToolType requiredTool, boolean isTransparent, boolean isSoil, int soilBonus) {
         this.registrySuffix = registrySuffix;
         this.hardness = hardness;
         this.resistance = resistance;
@@ -54,51 +63,39 @@ public enum BlockTerrainInfo implements IResource {
         this.requiresTool = requiresTool;
         this.requiredTool = requiredTool;
         this.isTransparent = isTransparent;
+        this.isSoil = isSoil;
+        this.soilBonus = soilBonus;
     }
 
     @Override
-    public String getRegistrySuffix() {
-        return registrySuffix;
-    }
+    public String getRegistrySuffix() { return registrySuffix; }
 
-    public float getHardness() {
-        return hardness;
-    }
+    public float getHardness() { return hardness; }
 
-    public float getResistance() {
-        return resistance;
-    }
+    public float getResistance() { return resistance; }
 
-    public int getHarvestLevel() {
-        return harvestLevel;
-    }
+    public int getHarvestLevel() { return harvestLevel; }
 
     public boolean requiresTool() { return requiresTool; }
 
     @Nullable
     public ToolType getRequiredTool() { return requiredTool; }
 
-    public int getLightValue() {
-        return lightValue;
-    }
+    public int getLightValue() { return lightValue; }
 
     public boolean isTransparent() { return isTransparent; }
 
-    public boolean isPortalFrame() {
-        return false;
-    }
+    public boolean isPortalFrame() { return false; }
 
-    public int getBurnTime() {
-        return -1;
-    }
+    public boolean isSoil() { return isSoil; }
 
-    public boolean burnsInFire() {
-        return burnsInFire;
-    }
+    public int getSoilBonus() { return isSoil ? soilBonus : 0; }
 
-    public PushReaction getPushReaction() {
-        return PushReaction.NORMAL;
-    }
+    public int getBurnTime() { return -1; }
+
+    public boolean burnsInFire() { return burnsInFire; }
+
+    public PushReaction getPushReaction() { return PushReaction.NORMAL; }
 
     public AbstractBlock.Properties buildProperties() {
         if (requiresTool && requiredTool != null) {
@@ -109,6 +106,18 @@ public enum BlockTerrainInfo implements IResource {
                     .harvestTool(requiredTool)
                     .harvestLevel(harvestLevel)
                     .sound(SoundType.STONE);
+        } else if (isTransparent){
+            return AbstractBlock.Properties.create(Material.GLASS)
+                    .hardnessAndResistance(hardness, resistance)
+                    .setLightLevel(state -> lightValue)
+                    .harvestLevel(harvestLevel)
+                    .sound(SoundType.GLASS);
+        } else if (isSoil) {
+            return AbstractBlock.Properties.create(Material.EARTH)
+                    .hardnessAndResistance(hardness, resistance)
+                    .setLightLevel(state -> lightValue)
+                    .harvestLevel(harvestLevel)
+                    .sound(SoundType.CROP);
         } else {
             return AbstractBlock.Properties.create(Material.EARTH)
                     .hardnessAndResistance(hardness, resistance)

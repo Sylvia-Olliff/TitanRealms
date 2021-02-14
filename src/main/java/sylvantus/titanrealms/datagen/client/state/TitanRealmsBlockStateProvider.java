@@ -23,9 +23,15 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
     protected void registerStatesAndModels() {
 
         ResourceLocation basicCube = modLoc("block/basic_cube");
+        ResourceLocation cubeAll2Layer = modLoc("block/util/cube_all_2_layer");
 
         // terrain items
         for (Map.Entry<TerrainType, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.TERRAIN.entrySet()) {
+            if (entry.getKey().getTerrain().getTerrainBlockInfo().isSoil()) {
+                simpleBlock(entry.getValue().getBlock(), models().withExistingParent("block/" + entry.getKey().getTerrain().getRegistrySuffix(), cubeAll2Layer)
+                    .texture("all", blockTexture(entry.getValue().getBlock()))
+                    .texture("all2", TitanRealms.rl("block/block_" + entry.getKey().getTerrain().getRegistrySuffix() + "_glow")));
+            }
             models().withExistingParent("item/block_" + entry.getKey().getTerrain().getRegistrySuffix(), modLoc("block/" + entry.getKey().getTerrain().getRegistrySuffix()));
         }
 //        // resource blocks

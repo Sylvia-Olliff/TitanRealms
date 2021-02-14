@@ -14,13 +14,15 @@ import sylvantus.titanrealms.common.blocks.TitanRealmsBlock;
 import sylvantus.titanrealms.common.resources.BlockTerrainInfo;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 public class BlockTerrain extends TitanRealmsBlock {
 
     @Nonnull
     private final BlockTerrainInfo terrainInfo;
 
-    public BlockTerrain(@Nonnull BlockTerrainInfo terrain) {
+    public BlockTerrain(BlockTerrainInfo terrain) {
         super(terrain.buildProperties());
         this.terrainInfo = terrain;
     }

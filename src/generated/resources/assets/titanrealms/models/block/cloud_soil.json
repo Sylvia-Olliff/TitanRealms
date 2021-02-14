@@ -1,0 +1,7 @@
+{
+  "parent": "titanrealms:block/util/cube_all_2_layer",
+  "textures": {
+    "all": "titanrealms:block/block_cloud_soil",
+    "all2": "titanrealms:block/block_cloud_soil_glow"
+  }
+}

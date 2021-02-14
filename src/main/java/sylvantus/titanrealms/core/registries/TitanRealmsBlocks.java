@@ -7,7 +7,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import sylvantus.titanrealms.TitanRealms;
 import sylvantus.titanrealms.common.blocks.basic.BlockTerrain;
+import sylvantus.titanrealms.common.blocks.basic.BlockTerrainSoil;
 import sylvantus.titanrealms.common.items.block.ItemBlockTerrain;
+import sylvantus.titanrealms.common.items.block.ItemBlockTerrainSoil;
 import sylvantus.titanrealms.common.resources.BlockTerrainInfo;
 import sylvantus.titanrealms.common.resources.TerrainResource;
 import sylvantus.titanrealms.common.resources.TerrainType;
@@ -28,7 +30,11 @@ public class TitanRealmsBlocks {
         // terrain
         for (TerrainType terrain : EnumUtils.TERRAIN_TYPES) {
             if (terrain.getTerrain().getTerrainBlockInfo() != null) {
-                TERRAIN.put(terrain, registerTerrainBlock(terrain.getTerrain().getTerrainBlockInfo()));
+                if (terrain.getTerrain().getTerrainBlockInfo().isSoil()) {
+                    TERRAIN.put(terrain, registerTerrainSoilBlock(terrain.getTerrain().getTerrainBlockInfo()));
+                } else {
+                    TERRAIN.put(terrain, registerTerrainBlock(terrain.getTerrain().getTerrainBlockInfo()));
+                }
             }
         }
     }
@@ -42,5 +48,9 @@ public class TitanRealmsBlocks {
             }
             return new ItemBlockTerrain(block, properties);
         });
+    }
+
+    private static BlockRegistryObject<BlockTerrainSoil, ItemBlockTerrainSoil> registerTerrainSoilBlock(BlockTerrainInfo terrain) {
+        return BLOCKS.registerDefaultProperties("block_" + terrain.getRegistrySuffix(), () -> new BlockTerrainSoil(terrain), ItemBlockTerrainSoil::new);
     }
 }

@@ -12,7 +12,10 @@ public enum TerrainResource implements IResource {
     BLASTED_MARBLE("blasted_marble", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_MARBLE), BlockTerrainInfo.BLASTED_MARBLE),
     BLASTED_STONE("blasted_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_STONE), BlockTerrainInfo.BLASTED_STONE),
     BLASTED_GLASS("blasted_glass", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.BLASTED_GLASS), BlockTerrainInfo.BLASTED_GLASS),
-    TITANFORGED_STONE("titanforged_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.TITANFORGED_STONE), BlockTerrainInfo.TITANFORGED_STONE);
+    TITANFORGED_STONE("titanforged_stone", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.TITANFORGED_STONE), BlockTerrainInfo.TITANFORGED_STONE),
+    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL), BlockTerrainInfo.SPARSE_CLOUD_SOIL),
+    CLOUD_SOIL("cloud_soil", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.CLOUD_SOIL), BlockTerrainInfo.CLOUD_SOIL),
+    DENSE_CLOUD_SOIL("cloud_soil_dense", 0xFFAF8E77, () -> TitanRealmsTags.Items.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL), BlockTerrainInfo.DENSE_CLOUD_SOIL);
 
     private final String name;
     private final int tint;

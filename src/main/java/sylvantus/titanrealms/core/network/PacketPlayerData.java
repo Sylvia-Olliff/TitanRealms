@@ -13,10 +13,6 @@ public class PacketPlayerData {
         this.uuid = uuid;
     }
 
-//    private PacketPlayerData(UUID uuid) {
-//        this.uuid = uuid;
-//    }
-
     public static void handle(PacketPlayerData message, Supplier<Context> context) {
         Context ctx = context.get();
         ctx.enqueueWork(() -> {
