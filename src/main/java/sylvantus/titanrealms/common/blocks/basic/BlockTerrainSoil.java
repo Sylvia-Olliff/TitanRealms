@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -55,6 +56,30 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
     }
 
     @Override
+    public boolean ticksRandomly(BlockState state) {
+        return true;
+    }
+
+    @Override
+    @Deprecated
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        TitanRealms.LOGGER.debug("Calling randomTick for soil block");
+        BlockState above = worldIn.getBlockState(pos.up());
+        Material aboveMaterial = above.getMaterial();
+
+        int soilBonus = this.getTerrainInfo().getSoilBonus();
+        if (above.getBlock() instanceof IGrowable && soilBonus > 0) {
+            boolean shouldBoost = random.nextInt(5) < soilBonus;
+            TitanRealms.LOGGER.debug("Choosing to " + (shouldBoost ? "" : "not ") + "boost");
+            if (shouldBoost) {
+                BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), worldIn, pos.up());
+            }
+        }
+
+        super.randomTick(state, worldIn, pos, random);
+    }
+
+    @Override
     @Deprecated
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         BlockState above = worldIn.getBlockState(pos.up());
@@ -62,15 +87,6 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
 
         if (aboveMaterial.isSolid()) {
             worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-        }
-
-        int soilBonus = this.getTerrainInfo().getSoilBonus();
-        if (above.getBlock() instanceof IGrowable && soilBonus > 0) {
-            IGrowable growable = (IGrowable) above.getBlock();
-
-            for (int i = 0; i < soilBonus; i++) {
-                BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), worldIn, pos.up());
-            }
         }
     }
 
