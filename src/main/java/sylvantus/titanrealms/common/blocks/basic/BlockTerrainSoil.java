@@ -21,6 +21,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
+import sylvantus.titanrealms.TitanRealms;
 import sylvantus.titanrealms.common.blocks.blocktypes.BlockShapes;
 import sylvantus.titanrealms.common.resources.BlockTerrainInfo;
 
@@ -48,17 +49,27 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
         return plantType == PlantType.CROP || plantType == PlantType.PLAINS || plantType == PlantType.CAVE;
     }
 
-    // FIXME: this method is not being called when expected
     @Override
-    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        if (pos.up() != neighbor) return;
+    public boolean isFertile(BlockState state, IBlockReader world, BlockPos pos) {
+        return true;
+    }
+
+    @Override
+    @Deprecated
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        BlockState above = worldIn.getBlockState(pos.up());
+        Material aboveMaterial = above.getMaterial();
+
+        if (aboveMaterial.isSolid()) {
+            worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+        }
 
         int soilBonus = this.getTerrainInfo().getSoilBonus();
-        if (world.getBlockState(neighbor).getBlock() instanceof IGrowable && soilBonus > 0) {
-            IGrowable growable = (IGrowable) world.getBlockState(neighbor).getBlock();
+        if (above.getBlock() instanceof IGrowable && soilBonus > 0) {
+            IGrowable growable = (IGrowable) above.getBlock();
 
             for (int i = 0; i < soilBonus; i++) {
-                BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), (World) world, neighbor);
+                BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), worldIn, pos.up());
             }
         }
     }

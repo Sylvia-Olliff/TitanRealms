@@ -98,7 +98,30 @@ public enum BlockTerrainInfo implements IResource {
     public PushReaction getPushReaction() { return PushReaction.NORMAL; }
 
     public AbstractBlock.Properties buildProperties() {
-        if (requiresTool && requiredTool != null) {
+
+        if (isTransparent){
+            return AbstractBlock.Properties.create(Material.GLASS)
+                    .hardnessAndResistance(hardness, resistance)
+                    .setLightLevel(state -> lightValue)
+                    .harvestLevel(harvestLevel)
+                    .sound(SoundType.GLASS);
+        } else if (isSoil) {
+            if (requiresTool && requiredTool != null) {
+                return AbstractBlock.Properties.create(Material.EARTH)
+                        .hardnessAndResistance(hardness, resistance)
+                        .setLightLevel(state -> lightValue)
+                        .harvestLevel(harvestLevel)
+                        .setRequiresTool()
+                        .harvestTool(requiredTool)
+                        .sound(SoundType.CROP);
+            } else {
+                return AbstractBlock.Properties.create(Material.EARTH)
+                        .hardnessAndResistance(hardness, resistance)
+                        .setLightLevel(state -> lightValue)
+                        .harvestLevel(harvestLevel)
+                        .sound(SoundType.CROP);
+            }
+        } else if (requiresTool && requiredTool != null) {
             return AbstractBlock.Properties.create(Material.EARTH)
                     .hardnessAndResistance(hardness, resistance)
                     .setLightLevel(state -> lightValue)
@@ -106,18 +129,6 @@ public enum BlockTerrainInfo implements IResource {
                     .harvestTool(requiredTool)
                     .harvestLevel(harvestLevel)
                     .sound(SoundType.STONE);
-        } else if (isTransparent){
-            return AbstractBlock.Properties.create(Material.GLASS)
-                    .hardnessAndResistance(hardness, resistance)
-                    .setLightLevel(state -> lightValue)
-                    .harvestLevel(harvestLevel)
-                    .sound(SoundType.GLASS);
-        } else if (isSoil) {
-            return AbstractBlock.Properties.create(Material.EARTH)
-                    .hardnessAndResistance(hardness, resistance)
-                    .setLightLevel(state -> lightValue)
-                    .harvestLevel(harvestLevel)
-                    .sound(SoundType.CROP);
         } else {
             return AbstractBlock.Properties.create(Material.EARTH)
                     .hardnessAndResistance(hardness, resistance)
