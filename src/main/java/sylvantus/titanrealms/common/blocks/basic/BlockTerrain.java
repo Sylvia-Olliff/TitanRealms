@@ -57,7 +57,7 @@ public class BlockTerrain extends TitanRealmsBlock {
     @Deprecated
     @OnlyIn(Dist.CLIENT)
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return this.terrainInfo.isTransparent() ? 1.0F : super.getAmbientOcclusionLightValue(state, worldIn, pos);
+        return this.terrainInfo.isTransparent() ? 0.2F : super.getAmbientOcclusionLightValue(state, worldIn, pos);
     }
 
     @Override

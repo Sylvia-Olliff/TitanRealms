@@ -1,7 +1,82 @@
 {
-  "variants": {
-    "": {
-      "model": "titanrealms:block/cloud_soil_dense"
+  "multipart": [
+    {
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_side"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_side",
+        "y": 90
+      }
+    },
+    {
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_side"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "north": "false"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_noside"
+      }
+    },
+    {
+      "when": {
+        "east": "false"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_noside",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "false"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_noside_alt"
+      }
+    },
+    {
+      "when": {
+        "west": "false"
+      },
+      "apply": {
+        "model": "titanrealms:block/cloud_soil_dense_noside_alt",
+        "y": 90
+      }
     }
-  }
+  ]
 }

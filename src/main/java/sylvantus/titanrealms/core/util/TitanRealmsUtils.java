@@ -5,6 +5,8 @@ import com.mojang.serialization.Codec;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.FloatingLong;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -242,6 +244,27 @@ public final class TitanRealmsUtils {
 
     public static boolean isPlayingMode(PlayerEntity player) {
         return !player.isCreative() && !player.isSpectator();
+    }
+
+    /**
+     *  Copied from net.minecraft.Block.Blocks
+     */
+    public static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean)false;
+    }
+
+    /**
+     *  Copied from net.minecraft.Block.Blocks
+     */
+    public static Boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean)true;
+    }
+
+    /**
+     *  Copied from net.minecraft.Block.Blocks
+     */
+    public static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos) {
+        return false;
     }
 
     public enum ResourceType {

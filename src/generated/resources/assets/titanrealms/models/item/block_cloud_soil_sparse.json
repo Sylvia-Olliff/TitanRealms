@@ -1,3 +1,6 @@
 {
-  "parent": "titanrealms:block/cloud_soil_sparse"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "titanrealms:block/block_cloud_soil"
+  }
 }

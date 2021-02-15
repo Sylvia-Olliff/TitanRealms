@@ -1,3 +1,6 @@
 {
-  "parent": "titanrealms:block/blasted_stone"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "titanrealms:block/block_blasted_stone"
+  }
 }
