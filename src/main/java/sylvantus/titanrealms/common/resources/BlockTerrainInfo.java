@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraftforge.common.ToolType;
 import sylvantus.titanrealms.core.enums.HarvestLevel;
+import sylvantus.titanrealms.core.util.TitanRealmsUtils;
 import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 
 import javax.annotation.Nullable;
@@ -16,9 +17,9 @@ public enum BlockTerrainInfo implements IResource {
     BLASTED_STONE("blasted_stone", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
     BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true),
     TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
-    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 2, 3, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 1),
-    CLOUD_SOIL("cloud_soil", 3, 4, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 2),
-    DENSE_CLOUD_SOIL("cloud_soil_dense", 4, 5, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, false, true, 3);
+    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 2, 3, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 1),
+    CLOUD_SOIL("cloud_soil", 3, 4, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 2),
+    DENSE_CLOUD_SOIL("cloud_soil_dense", 4, 5, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 3);
 
     private final String registrySuffix;
     private final boolean burnsInFire;
@@ -99,21 +100,30 @@ public enum BlockTerrainInfo implements IResource {
 
     public AbstractBlock.Properties buildProperties() {
 
-        if (isTransparent){
-            return AbstractBlock.Properties.create(Material.GLASS)
-                    .hardnessAndResistance(hardness, resistance)
-                    .setLightLevel(state -> lightValue)
-                    .harvestLevel(harvestLevel)
-                    .sound(SoundType.GLASS);
-        } else if (isSoil) {
+        if (isSoil) {
             if (requiresTool && requiredTool != null) {
-                return AbstractBlock.Properties.create(Material.EARTH)
-                        .hardnessAndResistance(hardness, resistance)
-                        .setLightLevel(state -> lightValue)
-                        .harvestLevel(harvestLevel)
-                        .setRequiresTool()
-                        .harvestTool(requiredTool)
-                        .sound(SoundType.CROP);
+                if (isTransparent) {
+                    return AbstractBlock.Properties.create(Material.GLASS)
+                            .hardnessAndResistance(hardness, resistance)
+                            .setLightLevel(state -> lightValue)
+                            .harvestLevel(harvestLevel)
+                            .setRequiresTool()
+                            .harvestTool(requiredTool)
+                            .notSolid()
+                            .setAllowsSpawn(TitanRealmsUtils::neverAllowSpawn)
+                            .setOpaque(TitanRealmsUtils::isntSolid)
+                            .setSuffocates(TitanRealmsUtils::isntSolid)
+                            .setBlocksVision(TitanRealmsUtils::isntSolid)
+                            .sound(SoundType.CROP);
+                } else {
+                    return AbstractBlock.Properties.create(Material.EARTH)
+                            .hardnessAndResistance(hardness, resistance)
+                            .setLightLevel(state -> lightValue)
+                            .harvestLevel(harvestLevel)
+                            .setRequiresTool()
+                            .harvestTool(requiredTool)
+                            .sound(SoundType.CROP);
+                }
             } else {
                 return AbstractBlock.Properties.create(Material.EARTH)
                         .hardnessAndResistance(hardness, resistance)
@@ -121,6 +131,17 @@ public enum BlockTerrainInfo implements IResource {
                         .harvestLevel(harvestLevel)
                         .sound(SoundType.CROP);
             }
+        } else if (isTransparent) {
+            return AbstractBlock.Properties.create(Material.GLASS)
+                    .hardnessAndResistance(hardness, resistance)
+                    .setLightLevel(state -> lightValue)
+                    .harvestLevel(harvestLevel)
+                    .notSolid()
+                    .setAllowsSpawn(TitanRealmsUtils::neverAllowSpawn)
+                    .setOpaque(TitanRealmsUtils::isntSolid)
+                    .setSuffocates(TitanRealmsUtils::isntSolid)
+                    .setBlocksVision(TitanRealmsUtils::isntSolid)
+                    .sound(SoundType.GLASS);
         } else if (requiresTool && requiredTool != null) {
             return AbstractBlock.Properties.create(Material.EARTH)
                     .hardnessAndResistance(hardness, resistance)

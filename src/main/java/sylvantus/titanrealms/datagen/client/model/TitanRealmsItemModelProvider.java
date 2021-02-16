@@ -1,15 +1,11 @@
 package sylvantus.titanrealms.datagen.client.model;
 
-import com.google.common.collect.Table.Cell;
-import java.util.Map;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
-import sylvantus.titanrealms.core.registration.impl.ItemRegistryObject;
-import sylvantus.titanrealms.core.registries.TitanRealmsItems;
-import sylvantus.titanrealms.core.util.TitanRealmsUtils.ResourceType;
+import sylvantus.titanrealms.common.resources.TerrainType;
 
 public class TitanRealmsItemModelProvider extends BaseItemModelProvider {
 
@@ -19,21 +15,29 @@ public class TitanRealmsItemModelProvider extends BaseItemModelProvider {
 
     @Override
     protected void registerModels() {
-        //Buckets
-//        TitanRealmsFluids.FLUIDS.getAllFluids().forEach(this::registerBucket);
+        registerTerrain();
+        registerTerrainSoil();
+    }
 
-//        for (Cell<ResourceType, PrimaryResource, ItemRegistryObject<Item>> item : TitanRealmsItems.PROCESSED_RESOURCES.cellSet()) {
-//            ResourceLocation texture = itemTexture(item.getValue());
-//            if (textureExists(texture)) {
-//                generated(item.getValue(), texture);
-//            } else {
-//                //If the texture does not exist fallback to the default texture
-//                resource(item.getValue(), item.getRowKey().getRegistryPrefix());
-//            }
-//        }
+    private void registerTerrain() {
+        generated("item/block_" + TerrainType.AESIR_STONE.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.AESIR_STONE.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.BLASTED_GLASS.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.BLASTED_GLASS.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.BLASTED_STONE.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.BLASTED_STONE.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.BLASTED_MARBLE.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.BLASTED_MARBLE.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.TITANFORGED_STONE.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.TITANFORGED_STONE.getTerrain().getRegistrySuffix()));
+    }
 
-//        for (Map.Entry<ModuleData<?>, ItemRegistryObject<? extends ItemModule>> entry : MekanismItems.MODULES.entrySet()) {
-//            generated(entry.getValue());
-//        }
+    private void registerTerrainSoil() {
+        generated("item/block_" + TerrainType.CLOUD_SOIL.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.CLOUD_SOIL.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.SPARSE_CLOUD_SOIL.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.CLOUD_SOIL.getTerrain().getRegistrySuffix()));
+        generated("item/block_" + TerrainType.CLOUD_SOIL.getTerrain().getRegistrySuffix(), TitanRealms.rl("block/block_" + TerrainType.CLOUD_SOIL.getTerrain().getRegistrySuffix()));
+    }
+
+    private ItemModelBuilder generated(String name, ResourceLocation... layers) {
+        ItemModelBuilder builder = withExistingParent(name, "item/generated");
+        for (int i = 0; i < layers.length; i++) {
+            builder = builder.texture("layer" + i, layers[i]);
+        }
+        return builder;
     }
 }
