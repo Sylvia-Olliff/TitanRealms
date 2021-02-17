@@ -93,6 +93,7 @@ public abstract class TileEntityTitanRealms extends CapabilityTileEntity impleme
     private int playSoundCooldown = 0;
     //End variables ITileSound
 
+    @SuppressWarnings("unchecked cast")
     public TileEntityTitanRealms(IBlockProvider blockProvider) {
         super(((IHasTileEntity<? extends TileEntity>) blockProvider.getBlock()).getTileType());
         this.blockProvider = blockProvider;

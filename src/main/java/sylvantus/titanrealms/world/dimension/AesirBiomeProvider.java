@@ -3,6 +3,7 @@ package sylvantus.titanrealms.world.dimension;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
@@ -16,6 +17,7 @@ import sylvantus.titanrealms.world.SeedWrapper;
 import java.util.*;
 import java.util.function.Supplier;
 
+@MethodsReturnNonnullByDefault
 public class AesirBiomeProvider extends BiomeProvider {
 
     public static final Codec<AesirBiomeProvider> CODEC = RecordCodecBuilder.create(
@@ -48,7 +50,7 @@ public class AesirBiomeProvider extends BiomeProvider {
 
     @Override
     protected Codec<? extends BiomeProvider> getBiomeProviderCodec() {
-        return this.CODEC;
+        return CODEC;
     }
 
     @OnlyIn(Dist.CLIENT)

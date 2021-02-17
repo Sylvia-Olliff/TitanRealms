@@ -250,14 +250,14 @@ public final class TitanRealmsUtils {
      *  Copied from net.minecraft.Block.Blocks
      */
     public static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
-        return (boolean)false;
+        return false;
     }
 
     /**
      *  Copied from net.minecraft.Block.Blocks
      */
     public static Boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
-        return (boolean)true;
+        return true;
     }
 
     /**

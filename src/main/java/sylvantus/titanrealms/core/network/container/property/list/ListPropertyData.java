@@ -20,6 +20,7 @@ public abstract class ListPropertyData<TYPE> extends PropertyData {
         this.values = values;
     }
 
+    @SuppressWarnings("unchecked cast")
     public static <TYPE> ListPropertyData<TYPE> readList(short property, PacketBuffer buffer) {
         ListType listType = buffer.readEnumValue(ListType.class);
         int elements = buffer.readVarInt();

@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "titanrealms:block/block_titanforged_stone"
-  }
+  "parent": "titanrealms:block/titanforged_stone"
 }

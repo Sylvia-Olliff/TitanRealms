@@ -45,17 +45,6 @@ public class BlockTerrain extends TitanRealmsBlock {
     @Override
     @Deprecated
     @OnlyIn(Dist.CLIENT)
-    public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-        if (this.terrainInfo.isTransparent()) {
-            return adjacentBlockState.isIn(this) || super.isSideInvisible(state, adjacentBlockState, side);
-        } else {
-            return super.isSideInvisible(state, adjacentBlockState, side);
-        }
-    }
-
-    @Override
-    @Deprecated
-    @OnlyIn(Dist.CLIENT)
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return this.terrainInfo.isTransparent() ? 0.2F : super.getAmbientOcclusionLightValue(state, worldIn, pos);
     }

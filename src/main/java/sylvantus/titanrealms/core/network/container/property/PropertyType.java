@@ -50,6 +50,7 @@ public enum PropertyType {
         this.dataCreatorFunction = dataCreatorFunction;
     }
 
+    @SuppressWarnings("unchecked cast")
     public <T> T getDefault() {
         return (T) defaultValue;
     }

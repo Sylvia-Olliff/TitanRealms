@@ -12,7 +12,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -28,8 +27,6 @@ import sylvantus.titanrealms.common.resources.BlockTerrainInfo;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
-import static net.minecraft.state.properties.BlockStateProperties.AXIS;
-
 @ParametersAreNonnullByDefault
 public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
@@ -44,16 +41,11 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
     final double boundingBoxWidthLower;
     final double boundingBoxWidthUpper;
 
-    private final double boundingBoxHeightLower;
-    private final double boundingBoxHeightUpper;
-
     public BlockTerrainSoil(BlockTerrainInfo terrain) {
         super(terrain);
 
         this.boundingBoxWidthLower = 0d;
         this.boundingBoxWidthUpper = 16d;
-        this.boundingBoxHeightLower = 0d;
-        this.boundingBoxHeightUpper = 16d;
 
         this.setDefaultState(stateContainer.getBaseState().with(AXIS, Direction.Axis.Y)
                 .with(NORTH, false).with(WEST, false)
@@ -75,29 +67,31 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
     }
 
     protected boolean canConnectTo(BlockState state, Direction dirToNeighbor, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos) {
-        return state.getBlock() == neighborState.getBlock() && state.get(AXIS) != dirToNeighbor.getAxis();
+        if (!neighborState.getBlock().isAir(neighborState, world, neighborPos)) {
+            if (neighborState.getBlock() instanceof IGrowable) {
+                return neighborState.getBlock() instanceof BlockTerrainSoil;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+//        return (neighborState.getBlock() == TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL).getBlock() ||
+//                neighborState.getBlock() == TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL).getBlock() ||
+//                neighborState.getBlock() == TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL).getBlock())
+//                && state.get(AXIS) != dirToNeighbor.getAxis();
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext ctx) {
         BlockState ret = getDefaultState().with(AXIS, ctx.getFace().getAxis());
+
         for (Direction dir : Direction.values()) {
             BlockPos neighborPos = ctx.getPos().offset(dir);
             boolean connect = canConnectTo(ret, dir, ctx.getWorld().getBlockState(neighborPos), ctx.getWorld(), ctx.getPos(), neighborPos);
             ret = ret.with(SixWayBlock.FACING_TO_PROPERTY_MAP.get(dir), connect);
         }
         return ret;
-    }
-
-    // Utility to make a bounding-box piece
-    protected AxisAlignedBB getSidedAABBStraight(Direction facing, Direction.Axis axis) {
-        return makeQuickAABB(
-                facing == Direction.EAST  ? 16d : axis == Direction.Axis.X ? this.boundingBoxHeightLower : this.boundingBoxWidthLower,
-                facing == Direction.UP    ? 16d : axis == Direction.Axis.Y ? this.boundingBoxHeightLower : this.boundingBoxWidthLower,
-                facing == Direction.SOUTH ? 16d : axis == Direction.Axis.Z ? this.boundingBoxHeightLower : this.boundingBoxWidthLower,
-                facing == Direction.WEST  ?  0d : axis == Direction.Axis.X ? this.boundingBoxHeightUpper : this.boundingBoxWidthUpper,
-                facing == Direction.DOWN  ?  0d : axis == Direction.Axis.Y ? this.boundingBoxHeightUpper : this.boundingBoxWidthUpper,
-                facing == Direction.NORTH ?  0d : axis == Direction.Axis.Z ? this.boundingBoxHeightUpper : this.boundingBoxWidthUpper);
     }
 
     @Override
@@ -153,13 +147,6 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
         }
     }
 
-    protected AxisAlignedBB makeQuickAABB(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return new AxisAlignedBB(
-                x1/16.0d, y1/16.0d,
-                z1/16.0d, x2/16.0d,
-                y2/16.0d, z2/16.0d);
-    }
-
     @Override
     public boolean isVariableOpacity() {
         return this.getTerrainInfo().isTransparent();
@@ -205,15 +192,15 @@ public class BlockTerrainSoil extends BlockTerrain implements IGrowable {
         super.randomTick(state, worldIn, pos, random);
     }
 
-    @Override
-    @Deprecated
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        Material aboveMaterial = worldIn.getBlockState(pos.up()).getMaterial();
-
-        if (aboveMaterial.isSolid()) {
-            worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-        }
-    }
+//    @Override
+//    @Deprecated
+//    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+//        Material aboveMaterial = worldIn.getBlockState(pos.up()).getMaterial();
+//
+//        if (aboveMaterial.isSolid()) {
+//            worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+//        }
+//    }
 
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {

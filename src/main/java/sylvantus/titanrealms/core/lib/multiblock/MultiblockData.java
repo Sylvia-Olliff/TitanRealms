@@ -200,6 +200,7 @@ public class MultiblockData implements IMekanismInventory {
     /**
      * Checks if this multiblock is formed and the given position is insides the bounds of this multiblock
      */
+    @SuppressWarnings("unchecked cast")
     public <T extends MultiblockData> boolean isPositionInsideBounds(@Nonnull Structure structure, @Nonnull BlockPos pos) {
         if (isFormed()) {
             CuboidRelative relativeLocation = getBounds().getRelativeLocation(pos);

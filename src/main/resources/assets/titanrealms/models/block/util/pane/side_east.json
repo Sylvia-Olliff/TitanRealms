@@ -7,7 +7,7 @@
       "to": [ 16, 16, 16 ],
       "shade": false,
       "faces": {
-        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#pane", "tintindex": 0 }
+        "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#edge", "tintindex": 0, "cullface": "east" }
       }
     }
   ]

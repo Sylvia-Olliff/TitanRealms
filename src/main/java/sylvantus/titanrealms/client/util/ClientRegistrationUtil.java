@@ -1,4 +1,4 @@
-package sylvantus.titanrealms.client;
+package sylvantus.titanrealms.client.util;
 
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.providers.IItemProvider;

@@ -3,6 +3,8 @@ package sylvantus.titanrealms.core.lib.chunkloading;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import java.util.Set;
+import java.util.UUID;
+
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -18,6 +20,8 @@ public class ChunkMultimap extends Long2ObjectOpenHashMap<Set<BlockPos>> impleme
 
     private static final String ENTRIES_KEY = "entries";
     private static final String KEY_KEY = "key";
+
+    public static final UUID serialVersionUID = new UUID(10, 1);
 
     public ChunkMultimap() {
     }

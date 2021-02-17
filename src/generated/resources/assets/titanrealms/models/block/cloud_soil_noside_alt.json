@@ -1,6 +1,0 @@
-{
-  "parent": "titanrealms:block/util/pane/noside_alt",
-  "textures": {
-    "pane": "titanrealms:block/block_cloud_soil"
-  }
-}

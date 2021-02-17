@@ -8,6 +8,7 @@ public interface IMultiblock<T extends MultiblockData> extends IMultiblockBase {
 
     T createMultiblock();
 
+    @SuppressWarnings("unchecked cast")
     default T getMultiblock() {
         //Basically the same as getMultiblockData(getManager()) except we skip over validating the manager is itself
         MultiblockData data = getStructure().getMultiblockData();

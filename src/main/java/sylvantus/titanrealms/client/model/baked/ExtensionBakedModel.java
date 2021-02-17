@@ -259,6 +259,7 @@ public class ExtensionBakedModel<T> implements IBakedModel {
             return Objects.hash(state, side, layer, transformation, dataHash);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public boolean equals(Object obj) {
             if (obj == this) {

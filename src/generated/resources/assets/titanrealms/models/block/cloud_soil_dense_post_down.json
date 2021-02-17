@@ -1,0 +1,7 @@
+{
+  "parent": "titanrealms:block/util/pane/post_down",
+  "textures": {
+    "pane": "titanrealms:block/block_cloud_soil",
+    "edge": "#pane"
+  }
+}

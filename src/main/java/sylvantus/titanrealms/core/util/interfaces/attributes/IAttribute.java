@@ -72,6 +72,7 @@ public interface IAttribute {
         return attr == null ? state : attr.setActive(state, active);
     }
 
+    @SuppressWarnings("unchecked cast")
     @Nullable
     static <TIER extends ITier> TIER getTier(Block block, Class<TIER> tierClass) {
         AttributeTier<TIER> attr = get(block, AttributeTier.class);

@@ -372,6 +372,7 @@ public abstract class TitanRealmsContainer extends Container {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public <TYPE> void handleWindowProperty(short property, @Nonnull List<TYPE> value) {
         ISyncableData data = trackedData.get(property);
         if (data instanceof SyncableList) {

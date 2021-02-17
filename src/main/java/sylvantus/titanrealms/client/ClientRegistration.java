@@ -2,6 +2,9 @@ package sylvantus.titanrealms.client;
 
 import mekanism.api.providers.IItemProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
@@ -13,10 +16,13 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,14 +30,20 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import sylvantus.titanrealms.TitanRealms;
+import sylvantus.titanrealms.client.model.TitanRealmsModelCache;
 import sylvantus.titanrealms.client.model.baked.ExtensionBakedModel.LightedBakedModel;
+import sylvantus.titanrealms.client.model.baked.TitanRealmsModel;
 import sylvantus.titanrealms.client.render.RenderTickHandler;
 import sylvantus.titanrealms.client.sound.SoundHandler;
+import sylvantus.titanrealms.common.resources.TerrainType;
+import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static sylvantus.titanrealms.client.util.ClientRegistrationUtil.*;
 
 @Mod.EventBusSubscriber(modid = TitanRealms.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistration {
@@ -50,6 +62,13 @@ public class ClientRegistration {
         // Register TileEntityRenderers
 
         // Block render layers
+        RenderType translucent = RenderType.getTranslucent();
+        RenderType cutout = RenderType.getCutout();
+        RenderType cutoutMipped = RenderType.getCutoutMipped();
+        setRenderLayer(translucent,
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL),
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL),
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL));
         // Cutout
 
         // Multi-Layer blocks (requiring both sold & translucent render layers)
@@ -67,7 +86,32 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void registerModelLoaders(ModelRegistryEvent event) {
+        ModelLoaderRegistry.registerLoader(TitanRealms.rl("titanrealms"), TitanRealmsModel.Loader.INSTANCE);
+        TitanRealmsModelCache.INSTANCE.setup();
+    }
 
+    @SubscribeEvent
+    public static void registerItemColorHandlers(ColorHandlerEvent.Item event) {
+        BlockColors blockColors = event.getBlockColors();
+        ItemColors itemColors = event.getItemColors();
+
+        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
+            if (tintIndex > 15) return 0xFFFFFF;
+            return 0xA9A9B0;
+        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL));
+        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
+            if (tintIndex > 15) return 0xFFFFFF;
+            return 0x84848A;
+        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL));
+        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
+            if (tintIndex > 15) return 0xFFFFFF;
+            return 0x605F63;
+        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL));
+
+        registerItemColorHandler(itemColors, (stack, tintIndex) -> blockColors.getColor(((BlockItem)stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex),
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL),
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL),
+                TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL));
     }
 
     @SubscribeEvent
@@ -76,7 +120,7 @@ public class ClientRegistration {
             CustomModelRegistryObject obj = customModels.get(new ResourceLocation(rl.getNamespace(), rl.getPath()));
             return obj == null ? model : obj.createModel(model, event);
         });
-//        MekanismModelCache.INSTANCE.onBake(event);
+        TitanRealmsModelCache.INSTANCE.onBake(event);
     }
 
     @SubscribeEvent

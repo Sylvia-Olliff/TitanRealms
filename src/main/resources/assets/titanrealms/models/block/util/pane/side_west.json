@@ -7,8 +7,7 @@
       "to": [ 16, 16, 16 ],
       "shade": false,
       "faces": {
-        "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#edge", "tintindex": 0, "cullface": "down" },
-        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#edge", "tintindex": 0, "cullface": "up"   }
+        "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#edge", "tintindex": 0, "cullface": "west" }
       }
     }
   ]

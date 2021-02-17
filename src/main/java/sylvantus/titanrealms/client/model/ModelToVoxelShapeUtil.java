@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class ModelToVoxelShapeUtil {
 
     public static void main(String[] args) {
-        printoutModelFile("/Users/aidancbrady/Documents/Mekanism/src/main/resources/assets/mekanism/models/block/digital_miner.json");
+        printoutModelFile("/Users/solliff/code/TitanRealms/src/main/resources/assets/titanrealms/models/block/cloud_soil_dense.json");
     }
 
     public static void printoutModelFile(String path) {

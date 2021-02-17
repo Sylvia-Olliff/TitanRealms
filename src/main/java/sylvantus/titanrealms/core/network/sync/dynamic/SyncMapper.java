@@ -32,6 +32,7 @@ import sylvantus.titanrealms.core.network.sync.ISyncableData;
 import sylvantus.titanrealms.core.network.sync.SyncableEnum;
 import sylvantus.titanrealms.core.util.LambdaMetaFactoryUtil;
 
+@SuppressWarnings("unchecked")
 public class SyncMapper {
 
     private SyncMapper() {
@@ -306,6 +307,7 @@ public class SyncMapper {
         private final Class<O> fieldType;
         private final List<SpecialPropertyData<O>> specialData = new ArrayList<>();
 
+        @SuppressWarnings("varargs")
         @SafeVarargs
         private SpecialPropertyHandler(Class<O> fieldType, SpecialPropertyData<O>... data) {
             this.fieldType = fieldType;

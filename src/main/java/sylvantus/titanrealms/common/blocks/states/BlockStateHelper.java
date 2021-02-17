@@ -62,7 +62,7 @@ public class BlockStateHelper {
 //            properties.add(((IStateFluidLoggable) block).getFluidLoggedProperty());
 //        }
         if (!properties.isEmpty()) {
-            builder.add(properties.toArray(new Property[0]));
+            builder.add(properties.toArray(new Property<?>[0]));
         }
     }
 
