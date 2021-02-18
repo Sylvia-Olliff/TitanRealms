@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
+import sylvantus.titanrealms.common.blocks.TitanRealmsBlock;
 import sylvantus.titanrealms.common.blocks.basic.BlockTerrain;
 import sylvantus.titanrealms.common.blocks.basic.BlockTerrainSoil;
 import sylvantus.titanrealms.common.items.block.ItemBlockTerrain;
@@ -18,6 +19,7 @@ import sylvantus.titanrealms.common.resources.TerrainResource;
 import sylvantus.titanrealms.common.resources.TerrainType;
 import sylvantus.titanrealms.core.registration.impl.BlockRegistryObject;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
+import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 import sylvantus.titanrealms.datagen.client.model.TitanRealmsBlockModelProvider;
 
 import java.util.Map;
@@ -116,18 +118,39 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
     @SuppressWarnings("unchecked")
     private void registerTerrainStates() {
-        ImmutableList<BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>> terrain = ImmutableList.of(
-                (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE),
-                (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>) TitanRealmsBlocks.TERRAIN.get(TerrainType.TITANFORGED_STONE),
-                (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>) TitanRealmsBlocks.TERRAIN.get(TerrainType.AESIR_STONE),
-                (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_GLASS),
-                (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain>) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_STONE)
-        );
 
-        for (BlockRegistryObject<? extends BlockTerrain, ? extends ItemBlockTerrain> entry : terrain) {
-            BlockTerrainInfo terrainInfo = entry.getBlock().getTerrainInfo();
+        BlockTerrainInfo blastedMarbleInfo = ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE).getBlock()).getTerrainInfo();
+        BlockTerrainInfo titanforgedStoneInfo = ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.TITANFORGED_STONE).getBlock()).getTerrainInfo();
+        BlockTerrainInfo aesirStoneInfo = ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.AESIR_STONE).getBlock()).getTerrainInfo();
+        BlockTerrainInfo blastedGlassInfo = ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_GLASS).getBlock()).getTerrainInfo();
+        BlockTerrainInfo blastedStoneInfo = ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_STONE).getBlock()).getTerrainInfo();
 
-            models().withExistingParent("item/block_" + terrainInfo.getRegistrySuffix(), modLoc("block/" + terrainInfo.getRegistrySuffix()));
+        models().withExistingParent("item/block_" + titanforgedStoneInfo.getRegistrySuffix(), modLoc("block/" + titanforgedStoneInfo.getRegistrySuffix()));
+        models().withExistingParent("item/block_" + aesirStoneInfo.getRegistrySuffix(), modLoc("block/" + aesirStoneInfo.getRegistrySuffix()));
+        models().withExistingParent("item/block_" + blastedGlassInfo.getRegistrySuffix(), modLoc("block/" + blastedGlassInfo.getRegistrySuffix()));
+
+        ModelFile blastedStone = buildDerivativeBlock(blastedStoneInfo);
+        simpleBlock(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_STONE).getBlock(), blastedStone);
+        models().withExistingParent("item/block_" + blastedStoneInfo.getRegistrySuffix(), modLoc("block/" + blastedStoneInfo.getRegistrySuffix()));
+
+        ModelFile blastedMarble = buildDerivativeBlock(blastedMarbleInfo);
+        simpleBlock(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE).getBlock(), blastedMarble);
+        models().withExistingParent("item/block_" + blastedMarbleInfo.getRegistrySuffix(), modLoc("block/" + blastedMarbleInfo.getRegistrySuffix()));
+    }
+
+    private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {
+        ResourceLocation texture = modLoc("block/block_" + blockInfo.getRegistrySuffix());
+        ModelFile file;
+
+        if (models().textureExists(texture)) {
+            file = models().withExistingParent("block/" + blockInfo.getRegistrySuffix(), basicCube)
+                    .texture("all", texture);
+        } else {
+            file = models().withExistingParent("block/" + blockInfo.getRegistrySuffix(), modLoc("block/colored_cube"))
+                    .texture("all", modLoc("block/block_" +
+                            ((BlockTerrain) TitanRealmsBlocks.TERRAIN.get(TerrainType.AESIR_STONE).getBlock()).getTerrainInfo().getRegistrySuffix()));
         }
+
+        return file;
     }
 }

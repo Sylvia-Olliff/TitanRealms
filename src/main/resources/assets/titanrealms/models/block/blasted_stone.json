@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "titanrealms:block/block_blasted_stone"
-  }
-}

@@ -34,6 +34,7 @@ import sylvantus.titanrealms.client.model.TitanRealmsModelCache;
 import sylvantus.titanrealms.client.model.baked.ExtensionBakedModel.LightedBakedModel;
 import sylvantus.titanrealms.client.model.baked.TitanRealmsModel;
 import sylvantus.titanrealms.client.render.RenderTickHandler;
+import sylvantus.titanrealms.client.render.TitanRealmsRenderer;
 import sylvantus.titanrealms.client.sound.SoundHandler;
 import sylvantus.titanrealms.common.resources.TerrainType;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
@@ -95,18 +96,25 @@ public class ClientRegistration {
         BlockColors blockColors = event.getBlockColors();
         ItemColors itemColors = event.getItemColors();
 
-        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
-            if (tintIndex > 15) return 0xFFFFFF;
-            return 0xA9A9B0;
-        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL));
-        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
-            if (tintIndex > 15) return 0xFFFFFF;
-            return 0x84848A;
-        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL));
-        registerBlockColorHandler(blockColors, (state, worldIn, pos, tintIndex) -> {
-            if (tintIndex > 15) return 0xFFFFFF;
-            return 0x605F63;
-        }, TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL));
+        registerBlockColorHandler(blockColors,
+            (state, worldIn, pos, tintIndex) -> tintIndex > 15 ? 0xFFFFFF : 0xA9A9B0, TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL));
+        registerBlockColorHandler(blockColors,
+            (state, worldIn, pos, tintIndex) -> tintIndex > 15 ? 0xFFFFFF : 0x605F63, TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL));
+        registerBlockColorHandler(blockColors,
+            (state, worldIn, pos, tintIndex) -> tintIndex > 15 ? 0xFFFFFF : 0x605F63, TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL));
+
+        registerBlockColorHandler(blockColors, itemColors,
+            (state, worldIn, pos, tintIndex) -> tintIndex > 15 ? 0xFFFFFF : 0x584F5E,
+            (state, index) -> index < 4 ? 0x584F5E : -1,
+            TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_STONE)
+        );
+
+        // 0x979CA8
+        registerBlockColorHandler(blockColors, itemColors,
+            (state, worldIn, pos, tintIndex) -> tintIndex < 15 ? TitanRealmsRenderer.getColorARGB(-1.25f, -1.25f, -1.25f, 0.94f) : 1,
+            (state, index) -> index < 4 ? TitanRealmsRenderer.getColorARGB(-1.25f, -1.25f, -1.25f, 0.94f) : 1,
+            TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE)
+        );
 
         registerItemColorHandler(itemColors, (stack, tintIndex) -> blockColors.getColor(((BlockItem)stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex),
                 TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL),
@@ -123,6 +131,7 @@ public class ClientRegistration {
         TitanRealmsModelCache.INSTANCE.onBake(event);
     }
 
+    @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void loadComplete(FMLLoadCompleteEvent event) {
         EntityRendererManager entityRenderManager = Minecraft.getInstance().getRenderManager();

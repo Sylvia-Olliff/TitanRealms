@@ -12,14 +12,14 @@ import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 import javax.annotation.Nullable;
 
 public enum BlockTerrainInfo implements IResource {
-    AESIR_STONE("aesir_stone", 5, 6, HarvestLevel.STONE.getLevel(), 7, false, true, ToolType.PICKAXE),
-    BLASTED_MARBLE("blasted_marble", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
-    BLASTED_STONE("blasted_stone", 6, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
-    BLASTED_GLASS("blasted_glass", 5, 5, HarvestLevel.WOOD.getLevel(), 8, false, false, null, true),
-    TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel(), 7, false, true, ToolType.PICKAXE),
-    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 2, 3, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 1),
-    CLOUD_SOIL("cloud_soil", 3, 4, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 2),
-    DENSE_CLOUD_SOIL("cloud_soil_dense", 4, 5, HarvestLevel.WOOD.getLevel(), 6, true, true, ToolType.SHOVEL, true, true, 3);
+    AESIR_STONE("aesir_stone", 5, 6, HarvestLevel.STONE.getLevel()),
+    BLASTED_MARBLE("blasted_marble", 6, 700, HarvestLevel.IRON.getLevel()),
+    BLASTED_STONE("blasted_stone", 6, 700, HarvestLevel.IRON.getLevel()),
+    BLASTED_GLASS("blasted_glass", 5, 50, HarvestLevel.WOOD.getLevel(), 12, false, false, null, true),
+    TITANFORGED_STONE("titanforged_stone", 7, 7, HarvestLevel.IRON.getLevel()),
+    SPARSE_CLOUD_SOIL("cloud_soil_sparse", 2, 3, HarvestLevel.WOOD.getLevel(), 9, true, true, ToolType.SHOVEL, true, true, 1),
+    CLOUD_SOIL("cloud_soil", 3, 4, HarvestLevel.WOOD.getLevel(), 9, true, true, ToolType.SHOVEL, true, true, 2),
+    DENSE_CLOUD_SOIL("cloud_soil_dense", 4, 5, HarvestLevel.WOOD.getLevel(), 9, true, true, ToolType.SHOVEL, true, true, 3);
 
     private final String registrySuffix;
     private final boolean burnsInFire;
@@ -39,11 +39,11 @@ public enum BlockTerrainInfo implements IResource {
     }
 
     BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue) {
-        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, true);
+        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, false);
     }
 
     BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire) {
-        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, burnsInFire, false, null);
+        this(registrySuffix, hardness, resistance, harvestLevel, lightValue, burnsInFire, true, ToolType.PICKAXE);
     }
 
     BlockTerrainInfo(String registrySuffix, float hardness, float resistance, int harvestLevel, int lightValue, boolean burnsInFire, boolean requiresTool, @Nullable ToolType requiredTool) {

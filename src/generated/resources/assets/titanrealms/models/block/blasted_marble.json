@@ -1,0 +1,6 @@
+{
+  "parent": "titanrealms:block/colored_cube",
+  "textures": {
+    "all": "titanrealms:block/block_aesir_stone"
+  }
+}
