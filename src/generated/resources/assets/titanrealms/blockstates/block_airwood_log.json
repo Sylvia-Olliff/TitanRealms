@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "titanrealms:block/block_airwood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "titanrealms:block/block_airwood_log"
+    },
+    "axis=z": {
+      "model": "titanrealms:block/block_airwood_log_horizontal",
+      "x": 90
+    }
+  }
+}

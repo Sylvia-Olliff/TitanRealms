@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "titanrealms:block/block_airwood_log",
+    "end": "titanrealms:block/block_airwood_log_top"
+  }
+}

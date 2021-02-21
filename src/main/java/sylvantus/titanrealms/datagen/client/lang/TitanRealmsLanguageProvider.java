@@ -192,6 +192,11 @@ public class TitanRealmsLanguageProvider extends BaseLanguageProvider {
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.SPARSE_CLOUD_SOIL), "Sparse Cloud Soil");
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.CLOUD_SOIL), "Cloud Soil");
         add(TitanRealmsBlocks.TERRAIN.get(TerrainType.DENSE_CLOUD_SOIL), "Dense Cloud Soil");
+
+        add(TitanRealmsBlocks.AIRWOOD_LOG, "Airwood Log");
+        add(TitanRealmsBlocks.AIRWOOD_PLANKS, "Airwood Planks");
+        add(TitanRealmsBlocks.STORMWOOD_LOG, "Stormwood Log");
+        add(TitanRealmsBlocks.STORMWOOD_PLANKS, "Stormwood Planks");
     }
 
     private void addItems() {

@@ -2,6 +2,7 @@ package sylvantus.titanrealms.datagen.client.state;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SixWayBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ModelTextures;
@@ -45,6 +46,9 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         // terrain
         registerTerrainSoilStates();
         registerTerrainStates();
+
+        // trees
+        registerTreeStates();
 
 //        // resource blocks
 //        for (Map.Entry<PrimaryResource, BlockRegistryObject<?, ?>> entry : TitanRealmsBlocks.PROCESSED_RESOURCE_BLOCKS.entrySet()) {
@@ -136,6 +140,19 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         ModelFile blastedMarble = buildDerivativeBlock(blastedMarbleInfo);
         simpleBlock(TitanRealmsBlocks.TERRAIN.get(TerrainType.BLASTED_MARBLE).getBlock(), blastedMarble);
         models().withExistingParent("item/block_" + blastedMarbleInfo.getRegistrySuffix(), modLoc("block/" + blastedMarbleInfo.getRegistrySuffix()));
+    }
+
+    private void registerTreeStates() {
+        registerLogSapling(TitanRealmsBlocks.AIRWOOD_LOG.getBlock());
+        registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
+    }
+
+    // TODO: Add Support for saplings
+    private void registerLogSapling(RotatedPillarBlock log /*, Block sapling */) {
+        logBlock(log);
+        models().withExistingParent("item/" + log.getRegistryName().getPath(), TitanRealms.rl("block/" + log.getRegistryName().getPath()));
+//        ResourceLocation saplingTex = TitanRealms.rl("block/" + sapling.getRegistryName().getPath());
+//        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {

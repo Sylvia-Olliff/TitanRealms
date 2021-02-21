@@ -6,6 +6,7 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
 import sylvantus.titanrealms.common.resources.TerrainType;
+import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
 
 public class TitanRealmsItemModelProvider extends BaseItemModelProvider {
 

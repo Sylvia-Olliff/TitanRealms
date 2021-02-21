@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "titanrealms:block/block_stormwood_log",
+    "end": "titanrealms:block/block_stormwood_log_top"
+  }
+}
