@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <modid>TitanRealms</modid>
+    <mcversion>1.16.5</mcversion>
+    <group>sylvantus.titanrealms</group>
+    <version>0.1.16</version>
+    <isDev>false</isDev>
+</config>
