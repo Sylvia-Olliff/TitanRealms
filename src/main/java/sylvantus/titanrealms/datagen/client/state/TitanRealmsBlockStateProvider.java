@@ -1,12 +1,12 @@
 package sylvantus.titanrealms.datagen.client.state;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SixWayBlock;
+import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ModelTextures;
+import net.minecraft.state.properties.Half;
+import net.minecraft.state.properties.StairsShape;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -146,7 +146,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
     private void registerTreeStates() {
         registerLogSapling(TitanRealmsBlocks.AIRWOOD_LOG.getBlock());
-        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock());
+        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock(), TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock());
         registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
     }
 
@@ -158,7 +158,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 //        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
     }
 
-    private void registerPlankBasedBlocks(String variant, Block plank) {
+    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs) {
         String plankTexName = "planks_" + variant;
         ResourceLocation plankText_0 = TitanRealms.rl("block/planks/" + plankTexName + "_0");
         ResourceLocation plankText_1 = TitanRealms.rl("block/planks/" + plankTexName + "_1");
@@ -176,6 +176,62 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_1"));
         models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_2"));
         models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_3"));
+
+        generateWoodStairs(stairs, plankText_0, plankText_1, plankText_2, plankText_3);
+    }
+
+    private void generateWoodStairs(StairsBlock stairs, ResourceLocation texture_0, ResourceLocation texture_1,
+                                    ResourceLocation texture_2, ResourceLocation texture_3) {
+        ModelFile main0 = models().stairs(stairs.getRegistryName().getPath(), texture_0, texture_0, texture_0);
+        ModelFile main1 = models().stairs(stairs.getRegistryName().getPath() + "_1", texture_1, texture_1, texture_1);
+        ModelFile main2 = models().stairs(stairs.getRegistryName().getPath() + "_2", texture_2, texture_2, texture_2);
+        ModelFile main3 = models().stairs(stairs.getRegistryName().getPath() + "_3", texture_3, texture_3, texture_3);
+        ModelFile inner0 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner", texture_0, texture_0, texture_0);
+        ModelFile inner1 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_1", texture_1, texture_1, texture_1);
+        ModelFile inner2 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_2", texture_2, texture_2, texture_2);
+        ModelFile inner3 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_3", texture_3, texture_3, texture_3);
+        ModelFile outer0 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer", texture_0, texture_0, texture_0);
+        ModelFile outer1 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_1", texture_1, texture_1, texture_1);
+        ModelFile outer2 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_2", texture_2, texture_2, texture_2);
+        ModelFile outer3 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_3", texture_3, texture_3, texture_3);
+
+        getVariantBuilder(stairs)
+                .forAllStatesExcept(state -> {
+                    Direction facing = state.get(StairsBlock.FACING);
+                    Half half = state.get(StairsBlock.HALF);
+                    StairsShape shape = state.get(StairsBlock.SHAPE);
+                    int yRot = (int) facing.rotateY().getHorizontalAngle(); // Stairs model is rotated 90 degrees clockwise for some reason
+                    if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT) {
+                        yRot += 270; // Left facing stairs are rotated 90 degrees clockwise
+                    }
+                    if (shape != StairsShape.STRAIGHT && half == Half.TOP) {
+                        yRot += 90; // Top stairs are rotated 90 degrees clockwise
+                    }
+                    yRot %= 360;
+                    boolean uvlock = yRot != 0 || half == Half.TOP; // Don't set uvlock for states that have no rotation
+                    return ConfiguredModel.builder()
+                            .weight(10)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main0 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner0 : outer0)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
+                            .nextModel()
+
+                            .weight(10)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main1 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner1 : outer1)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
+                            .nextModel()
+
+                            .weight(1)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main2 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner2 : outer2)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
+                            .nextModel()
+
+                            .weight(1)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main3 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner3 : outer3)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
+                            .build();
+                }, StairsBlock.WATERLOGGED);
+
+        models().withExistingParent(stairs.getRegistryName().getPath(), TitanRealms.rl("block/" + stairs.getRegistryName().getPath()));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {

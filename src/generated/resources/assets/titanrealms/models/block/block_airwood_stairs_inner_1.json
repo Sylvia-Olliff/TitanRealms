@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "titanrealms:block/planks/planks_airwood_1",
+    "bottom": "titanrealms:block/planks/planks_airwood_1",
+    "top": "titanrealms:block/planks/planks_airwood_1"
+  }
+}
