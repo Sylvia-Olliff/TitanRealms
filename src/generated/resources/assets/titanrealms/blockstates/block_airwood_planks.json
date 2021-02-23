@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "titanrealms:block/block_airwood_planks",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_1",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_2"
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_3"
+      }
+    ]
+  }
+}

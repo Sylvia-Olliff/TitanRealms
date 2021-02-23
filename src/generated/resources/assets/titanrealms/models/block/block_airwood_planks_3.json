@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "titanrealms:block/planks/planks_airwood_3"
+  }
+}

@@ -1,12 +1,14 @@
 package sylvantus.titanrealms.datagen.client.state;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SixWayBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ModelTextures;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
@@ -144,6 +146,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
     private void registerTreeStates() {
         registerLogSapling(TitanRealmsBlocks.AIRWOOD_LOG.getBlock());
+        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock());
         registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
     }
 
@@ -153,6 +156,26 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         models().withExistingParent("item/" + log.getRegistryName().getPath(), TitanRealms.rl("block/" + log.getRegistryName().getPath()));
 //        ResourceLocation saplingTex = TitanRealms.rl("block/" + sapling.getRegistryName().getPath());
 //        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
+    }
+
+    private void registerPlankBasedBlocks(String variant, Block plank) {
+        String plankTexName = "planks_" + variant;
+        ResourceLocation plankText_0 = TitanRealms.rl("block/planks/" + plankTexName + "_0");
+        ResourceLocation plankText_1 = TitanRealms.rl("block/planks/" + plankTexName + "_1");
+        ResourceLocation plankText_2 = TitanRealms.rl("block/planks/" + plankTexName + "_2");
+        ResourceLocation plankText_3 = TitanRealms.rl("block/planks/" + plankTexName + "_3");
+
+        ConfiguredModel[] plankModels = ConfiguredModel.builder()
+                .weight(10).modelFile(models().cubeAll(plank.getRegistryName().getPath(), plankText_0)).nextModel()
+                .weight(10).modelFile(models().cubeAll(plank.getRegistryName().getPath() + "_1", plankText_1)).nextModel()
+                .weight(1).modelFile(models().cubeAll(plank.getRegistryName().getPath() + "_2", plankText_2)).nextModel()
+                .weight(1).modelFile(models().cubeAll(plank.getRegistryName().getPath() + "_3", plankText_3)).build();
+        simpleBlock(plank, plankModels);
+
+        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath()));
+        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_1"));
+        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_2"));
+        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_3"));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {

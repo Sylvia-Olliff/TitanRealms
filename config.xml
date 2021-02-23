@@ -3,6 +3,6 @@
     <modid>TitanRealms</modid>
     <mcversion>1.16.5</mcversion>
     <group>sylvantus.titanrealms</group>
-    <version>0.1.16</version>
-    <isDev>false</isDev>
+    <version>0.0.0-dev.1</version>
+    <isDev>true</isDev>
 </config>
