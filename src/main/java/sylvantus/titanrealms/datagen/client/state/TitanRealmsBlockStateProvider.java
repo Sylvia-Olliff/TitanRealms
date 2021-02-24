@@ -11,6 +11,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
 import sylvantus.titanrealms.common.blocks.TitanRealmsBlock;
@@ -147,7 +148,12 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
     private void registerTreeStates() {
         registerLogSapling(TitanRealmsBlocks.AIRWOOD_LOG.getBlock());
-        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock(), TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock(), TitanRealmsBlocks.AIRWOOD_SLAB.getBlock());
+        registerPlankBasedBlocks("airwood",
+                TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_SLAB.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_FENCE.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_GATE.getBlock());
         registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
     }
 
@@ -159,7 +165,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 //        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
     }
 
-    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs, Block slab) {
+    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs, Block slab, Block fence, Block gate) {
         String plankTexName = "planks_" + variant;
         ResourceLocation plankText_0 = TitanRealms.rl("block/planks/" + plankTexName + "_0");
         ResourceLocation plankText_1 = TitanRealms.rl("block/planks/" + plankTexName + "_1");
@@ -191,22 +197,24 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         models().withExistingParent("item/" + slab.getRegistryName().getPath(), TitanRealms.rl("block/" + slab.getRegistryName().getPath()));
 
         generateWoodStairs(stairs, plankText_0, plankText_1, plankText_2, plankText_3);
+        generateWoodFence(fence, plankText_0, plankText_1, plankText_2, plankText_3);
+        generateWoodGate(gate, plankText_0, plankText_1, plankText_2, plankText_3);
     }
 
-    private void generateWoodStairs(StairsBlock stairs, ResourceLocation texture_0, ResourceLocation texture_1,
-                                    ResourceLocation texture_2, ResourceLocation texture_3) {
-        ModelFile main0 = models().stairs(stairs.getRegistryName().getPath(), texture_0, texture_0, texture_0);
-        ModelFile main1 = models().stairs(stairs.getRegistryName().getPath() + "_1", texture_1, texture_1, texture_1);
-        ModelFile main2 = models().stairs(stairs.getRegistryName().getPath() + "_2", texture_2, texture_2, texture_2);
-        ModelFile main3 = models().stairs(stairs.getRegistryName().getPath() + "_3", texture_3, texture_3, texture_3);
-        ModelFile inner0 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner", texture_0, texture_0, texture_0);
-        ModelFile inner1 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_1", texture_1, texture_1, texture_1);
-        ModelFile inner2 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_2", texture_2, texture_2, texture_2);
-        ModelFile inner3 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_3", texture_3, texture_3, texture_3);
-        ModelFile outer0 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer", texture_0, texture_0, texture_0);
-        ModelFile outer1 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_1", texture_1, texture_1, texture_1);
-        ModelFile outer2 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_2", texture_2, texture_2, texture_2);
-        ModelFile outer3 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_3", texture_3, texture_3, texture_3);
+    private void generateWoodStairs(StairsBlock stairs, ResourceLocation plankText_0, ResourceLocation plankText_1,
+                                    ResourceLocation plankText_2, ResourceLocation plankText_3) {
+        ModelFile main_0 = models().stairs(stairs.getRegistryName().getPath(), plankText_0, plankText_0, plankText_0);
+        ModelFile main_1 = models().stairs(stairs.getRegistryName().getPath() + "_1", plankText_1, plankText_1, plankText_1);
+        ModelFile main_2 = models().stairs(stairs.getRegistryName().getPath() + "_2", plankText_2, plankText_2, plankText_2);
+        ModelFile main_3 = models().stairs(stairs.getRegistryName().getPath() + "_3", plankText_3, plankText_3, plankText_3);
+        ModelFile inner_0 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner", plankText_0, plankText_0, plankText_0);
+        ModelFile inner_1 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_1", plankText_1, plankText_1, plankText_1);
+        ModelFile inner_2 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_2", plankText_2, plankText_2, plankText_2);
+        ModelFile inner_3 = models().stairsInner(stairs.getRegistryName().getPath() + "_inner_3", plankText_3, plankText_3, plankText_3);
+        ModelFile outer_0 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer", plankText_0, plankText_0, plankText_0);
+        ModelFile outer_1 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_1", plankText_1, plankText_1, plankText_1);
+        ModelFile outer_2 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_2", plankText_2, plankText_2, plankText_2);
+        ModelFile outer_3 = models().stairsOuter(stairs.getRegistryName().getPath() + "_outer_3", plankText_3, plankText_3, plankText_3);
 
         getVariantBuilder(stairs)
                 .forAllStatesExcept(state -> {
@@ -224,27 +232,120 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
                     boolean uvlock = yRot != 0 || half == Half.TOP; // Don't set uvlock for states that have no rotation
                     return ConfiguredModel.builder()
                             .weight(10)
-                            .modelFile(shape == StairsShape.STRAIGHT ? main0 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner0 : outer0)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main_0 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner_0 : outer_0)
                             .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
                             .nextModel()
 
                             .weight(10)
-                            .modelFile(shape == StairsShape.STRAIGHT ? main1 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner1 : outer1)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main_1 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner_1 : outer_1)
                             .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
                             .nextModel()
 
                             .weight(1)
-                            .modelFile(shape == StairsShape.STRAIGHT ? main2 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner2 : outer2)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main_2 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner_2 : outer_2)
                             .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
                             .nextModel()
 
                             .weight(1)
-                            .modelFile(shape == StairsShape.STRAIGHT ? main3 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner3 : outer3)
+                            .modelFile(shape == StairsShape.STRAIGHT ? main_3 : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? inner_3 : outer_3)
                             .rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock)
                             .build();
                 }, StairsBlock.WATERLOGGED);
 
         models().withExistingParent("item/" + stairs.getRegistryName().getPath(), TitanRealms.rl("block/" + stairs.getRegistryName().getPath()));
+    }
+
+    private void generateWoodFence(Block fence, ResourceLocation plankText_0, ResourceLocation plankText_1,
+                                   ResourceLocation plankText_2, ResourceLocation plankText_3) {
+        ModelFile post_0 = models().fencePost(fence.getRegistryName().getPath() + "_post", plankText_0);
+        ModelFile post_1 = models().fencePost(fence.getRegistryName().getPath() + "_post_1", plankText_1);
+        ModelFile post_2 = models().fencePost(fence.getRegistryName().getPath() + "_post_2", plankText_2);
+        ModelFile post_3 = models().fencePost(fence.getRegistryName().getPath() + "_post_3", plankText_3);
+        ModelFile side_0 = models().fenceSide(fence.getRegistryName().getPath() + "_side", plankText_0);
+        ModelFile side_1 = models().fenceSide(fence.getRegistryName().getPath() + "_side_1", plankText_1);
+        ModelFile side_2 = models().fenceSide(fence.getRegistryName().getPath() + "_side_2", plankText_2);
+        ModelFile side_3 = models().fenceSide(fence.getRegistryName().getPath() + "_side_3", plankText_3);
+
+        // [VanillaCopy] super.fourWayBlock, but with more models
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(fence).part()
+                .weight(10).modelFile(post_0).nextModel()
+                .weight(10).modelFile(post_1).nextModel()
+                .weight(1).modelFile(post_2).nextModel()
+                .weight(1).modelFile(post_3).addModel().end();
+        SixWayBlock.FACING_TO_PROPERTY_MAP.forEach((dir, value) -> {
+            if (dir.getAxis().isHorizontal()) {
+                builder.part()
+                        .weight(10).modelFile(side_0).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).nextModel()
+                        .weight(10).modelFile(side_1).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).nextModel()
+                        .weight(1).modelFile(side_2).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).nextModel()
+                        .weight(1).modelFile(side_3).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true)
+                        .addModel()
+                        .condition(value, true);
+            }
+        });
+
+        itemModels().getBuilder(fence.getRegistryName().getPath())
+                .parent(itemModels().getExistingFile(mcLoc("block/fence_inventory")))
+                .texture("texture", plankText_0);
+    }
+
+    private void generateWoodGate(Block gate, ResourceLocation plankText_0, ResourceLocation plankText_1,
+                                  ResourceLocation plankText_2, ResourceLocation plankText_3) {
+        ModelFile gate_0 = models().fenceGate(gate.getRegistryName().getPath(), plankText_0);
+        ModelFile gate_1 = models().fenceGate(gate.getRegistryName().getPath() + "_1", plankText_1);
+        ModelFile gate_2 = models().fenceGate(gate.getRegistryName().getPath() + "_2", plankText_2);
+        ModelFile gate_3 = models().fenceGate(gate.getRegistryName().getPath() + "_3", plankText_3);
+        ModelFile open_0 = models().fenceGateOpen(gate.getRegistryName().getPath() + "_open", plankText_0);
+        ModelFile open_1 = models().fenceGateOpen(gate.getRegistryName().getPath() + "_open_1", plankText_1);
+        ModelFile open_2 = models().fenceGateOpen(gate.getRegistryName().getPath() + "_open_2", plankText_2);
+        ModelFile open_3 = models().fenceGateOpen(gate.getRegistryName().getPath() + "_open_3", plankText_3);
+        ModelFile wall_0 = models().fenceGateWall(gate.getRegistryName().getPath() + "_wall", plankText_0);
+        ModelFile wall_1 = models().fenceGateWall(gate.getRegistryName().getPath() + "_wall_1", plankText_1);
+        ModelFile wall_2 = models().fenceGateWall(gate.getRegistryName().getPath() + "_wall_2", plankText_2);
+        ModelFile wall_3 = models().fenceGateWall(gate.getRegistryName().getPath() + "_wall_3", plankText_3);
+        ModelFile wallOpen_0 = models().fenceGateWallOpen(gate.getRegistryName().getPath() + "_wall_open", plankText_0);
+        ModelFile wallOpen_1 = models().fenceGateWallOpen(gate.getRegistryName().getPath() + "_wall_open_1", plankText_1);
+        ModelFile wallOpen_2 = models().fenceGateWallOpen(gate.getRegistryName().getPath() + "_wall_open_2", plankText_2);
+        ModelFile wallOpen_3 = models().fenceGateWallOpen(gate.getRegistryName().getPath() + "_wall_open_3", plankText_3);
+
+        // [VanillaCopy] super.fenceGateBlock except with more models
+        getVariantBuilder(gate).forAllStatesExcept(state -> {
+            ModelFile model_0 = gate_0;
+            ModelFile model_1 = gate_1;
+            ModelFile model_2 = gate_2;
+            ModelFile model_3 = gate_3;
+            if (state.get(FenceGateBlock.IN_WALL)) {
+                model_0 = wall_0;
+                model_1 = wall_1;
+                model_2 = wall_2;
+                model_3 = wall_3;
+            }
+            if (state.get(FenceGateBlock.OPEN)) {
+                model_0 = model_0 == wall_0 ? wallOpen_0 : open_0;
+                model_1 = model_1 == wall_1 ? wallOpen_1 : open_1;
+                model_2 = model_2 == wall_2 ? wallOpen_2 : open_2;
+                model_3 = model_3 == wall_3 ? wallOpen_3 : open_3;
+            }
+            return ConfiguredModel.builder()
+                    .weight(10).modelFile(model_0)
+                    .rotationY((int) state.get(HorizontalBlock.HORIZONTAL_FACING).getHorizontalAngle())
+                    .uvLock(true).nextModel()
+
+                    .weight(10).modelFile(model_1)
+                    .rotationY((int) state.get(HorizontalBlock.HORIZONTAL_FACING).getHorizontalAngle())
+                    .uvLock(true).nextModel()
+
+                    .weight(1).modelFile(model_2)
+                    .rotationY((int) state.get(HorizontalBlock.HORIZONTAL_FACING).getHorizontalAngle())
+                    .uvLock(true).nextModel()
+
+                    .weight(1).modelFile(model_3)
+                    .rotationY((int) state.get(HorizontalBlock.HORIZONTAL_FACING).getHorizontalAngle())
+                    .uvLock(true)
+                    .build();
+        }, FenceGateBlock.POWERED);
+
+        models().withExistingParent("item/" + gate.getRegistryName().getPath(), TitanRealms.rl("block/" + gate.getRegistryName().getPath()));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {

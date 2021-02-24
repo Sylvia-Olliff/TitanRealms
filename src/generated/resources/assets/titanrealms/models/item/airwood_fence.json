@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_inventory",
+  "textures": {
+    "texture": "titanrealms:block/planks/planks_airwood_0"
+  }
+}

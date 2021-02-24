@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "titanrealms:airwood_slab"
+          "name": "titanrealms:airwood_fence"
         }
       ],
       "conditions": [

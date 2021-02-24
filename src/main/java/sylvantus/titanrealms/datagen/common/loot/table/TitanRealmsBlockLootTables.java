@@ -19,7 +19,11 @@ public class TitanRealmsBlockLootTables extends BaseBlockLootTables {
 
         //Register the remaining blocks as dropping themselves with any contents they may have stored
         List<IBlockProvider> slabBlocks = TitanRealmsBlocks.BLOCKS.getAllBlocks().stream().filter(provider -> provider.getBlock() instanceof SlabBlock).collect(Collectors.toList());
-        slabBlocks.forEach(provider -> TitanRealmsBlockLootTables.droppingSlab(provider.getBlock()));
+        slabBlocks.forEach(provider -> {
+            TitanRealmsBlockLootTables.droppingSlab(provider.getBlock());
+            skip(provider);
+        });
+
 
         registerDropSelfWithContentsLootTable(TitanRealmsBlocks.BLOCKS.getAllBlocks());
     }

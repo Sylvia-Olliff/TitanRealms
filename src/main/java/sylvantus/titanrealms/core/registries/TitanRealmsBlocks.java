@@ -45,6 +45,9 @@ public class TitanRealmsBlocks {
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> AIRWOOD_PLANKS = registerWoodenPlanks("airwood_planks", Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA, 5, 5);
     public static final BlockRegistryObject<BlockTitanRealmsStairs, ItemBlockStairs> AIRWOOD_STAIRS = registerWoodenStairs("airwood_stairs", AIRWOOD_PLANKS);
     public static final BlockRegistryObject<SlabBlock, ItemBlockSlab> AIRWOOD_SLAB = BLOCKS.register("airwood_slab", () -> new SlabBlock(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA).hardnessAndResistance(2.0F, 5.0F).sound(SoundType.WOOD)), ItemBlockSlab::new);
+    public static final BlockRegistryObject<FenceBlock, ItemBlockFence> AIRWOOD_FENCE = BLOCKS.register("airwood_fence", () -> new FenceBlock(Block.Properties.from(AIRWOOD_PLANKS.getBlock())), ItemBlockFence::new);
+    public static final BlockRegistryObject<FenceGateBlock, ItemBlockGate> AIRWOOD_GATE = BLOCKS.register("airwood_gate", () -> new FenceGateBlock(Block.Properties.from(AIRWOOD_PLANKS.getBlock())), ItemBlockGate::new);
+
 
     public static final BlockRegistryObject<BlockLog, ItemBlockLog> STORMWOOD_LOG = registerLogs("stormwood_log", MaterialColor.BLUE_TERRACOTTA, MaterialColor.GRAY);
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> STORMWOOD_PLANKS = registerWoodenPlanks("stormwood_planks", Material.WOOD, MaterialColor.GRAY, 5, 5);
