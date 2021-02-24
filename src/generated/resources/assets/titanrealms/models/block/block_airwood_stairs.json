@@ -1,5 +1,5 @@
 {
-  "parent": "titanrealms:block/block_airwood_stairs",
+  "parent": "minecraft:block/stairs",
   "textures": {
     "side": "titanrealms:block/planks/planks_airwood_0",
     "bottom": "titanrealms:block/planks/planks_airwood_0",

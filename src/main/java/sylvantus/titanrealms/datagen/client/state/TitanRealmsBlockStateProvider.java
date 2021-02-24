@@ -173,9 +173,6 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         simpleBlock(plank, plankModels);
 
         models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath()));
-        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_1"));
-        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_2"));
-        models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath() + "_3"));
 
         generateWoodStairs(stairs, plankText_0, plankText_1, plankText_2, plankText_3);
     }
@@ -231,7 +228,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
                             .build();
                 }, StairsBlock.WATERLOGGED);
 
-        models().withExistingParent(stairs.getRegistryName().getPath(), TitanRealms.rl("block/" + stairs.getRegistryName().getPath()));
+        models().withExistingParent("item/" + stairs.getRegistryName().getPath(), TitanRealms.rl("block/" + stairs.getRegistryName().getPath()));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {
