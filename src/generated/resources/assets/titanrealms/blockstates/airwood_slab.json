@@ -1,0 +1,60 @@
+{
+  "variants": {
+    "type=top": [
+      {
+        "model": "titanrealms:block/airwood_slab",
+        "x": 180,
+        "uvlock": true,
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_1",
+        "x": 180,
+        "uvlock": true,
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_2",
+        "x": 180,
+        "uvlock": true
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_3",
+        "x": 180,
+        "uvlock": true
+      }
+    ],
+    "type=bottom": [
+      {
+        "model": "titanrealms:block/airwood_slab",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_1",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_2"
+      },
+      {
+        "model": "titanrealms:block/airwood_slab_3"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "titanrealms:block/block_airwood_planks",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_1",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_2"
+      },
+      {
+        "model": "titanrealms:block/block_airwood_planks_3"
+      }
+    ]
+  }
+}

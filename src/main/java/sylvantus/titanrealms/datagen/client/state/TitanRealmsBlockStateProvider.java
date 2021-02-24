@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ModelTextures;
 import net.minecraft.state.properties.Half;
+import net.minecraft.state.properties.SlabType;
 import net.minecraft.state.properties.StairsShape;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -146,7 +147,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 
     private void registerTreeStates() {
         registerLogSapling(TitanRealmsBlocks.AIRWOOD_LOG.getBlock());
-        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock(), TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock());
+        registerPlankBasedBlocks("airwood", TitanRealmsBlocks.AIRWOOD_PLANKS.getBlock(), TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock(), TitanRealmsBlocks.AIRWOOD_SLAB.getBlock());
         registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
     }
 
@@ -158,7 +159,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 //        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
     }
 
-    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs) {
+    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs, Block slab) {
         String plankTexName = "planks_" + variant;
         ResourceLocation plankText_0 = TitanRealms.rl("block/planks/" + plankTexName + "_0");
         ResourceLocation plankText_1 = TitanRealms.rl("block/planks/" + plankTexName + "_1");
@@ -172,7 +173,22 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
                 .weight(1).modelFile(models().cubeAll(plank.getRegistryName().getPath() + "_3", plankText_3)).build();
         simpleBlock(plank, plankModels);
 
+        ConfiguredModel[] bottomSlabModels = ConfiguredModel.builder()
+                .weight(10).modelFile(models().slab(slab.getRegistryName().getPath(), plankText_0, plankText_0, plankText_0)).nextModel()
+                .weight(10).modelFile(models().slab(slab.getRegistryName().getPath() + "_1", plankText_1, plankText_1, plankText_1)).nextModel()
+                .weight(1).modelFile(models().slab(slab.getRegistryName().getPath() + "_2", plankText_2, plankText_2, plankText_2)).nextModel()
+                .weight(1).modelFile(models().slab(slab.getRegistryName().getPath() + "_3", plankText_3, plankText_3, plankText_3)).build();
+        ConfiguredModel[] topSlabModels = ConfiguredModel.builder()
+                .weight(10).uvLock(true).rotationX(180).modelFile(bottomSlabModels[0].model).nextModel()
+                .weight(10).uvLock(true).rotationX(180).modelFile(bottomSlabModels[1].model).nextModel()
+                .weight(1).uvLock(true).rotationX(180).modelFile(bottomSlabModels[2].model).nextModel()
+                .weight(1).uvLock(true).rotationX(180).modelFile(bottomSlabModels[3].model).build();
+        getVariantBuilder(slab).partialState().with(SlabBlock.TYPE, SlabType.BOTTOM).setModels(bottomSlabModels);
+        getVariantBuilder(slab).partialState().with(SlabBlock.TYPE, SlabType.TOP).setModels(topSlabModels);
+        getVariantBuilder(slab).partialState().with(SlabBlock.TYPE, SlabType.DOUBLE).setModels(plankModels);
+
         models().withExistingParent("item/" + plank.getRegistryName().getPath(), TitanRealms.rl("block/" + plank.getRegistryName().getPath()));
+        models().withExistingParent("item/" + slab.getRegistryName().getPath(), TitanRealms.rl("block/" + slab.getRegistryName().getPath()));
 
         generateWoodStairs(stairs, plankText_0, plankText_1, plankText_2, plankText_3);
     }

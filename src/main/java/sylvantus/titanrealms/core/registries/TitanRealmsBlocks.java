@@ -1,9 +1,6 @@
 package sylvantus.titanrealms.core.registries;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -47,6 +44,7 @@ public class TitanRealmsBlocks {
     public static final BlockRegistryObject<BlockLog, ItemBlockLog> AIRWOOD_LOG = registerLogs("airwood_log", MaterialColor.CLAY, MaterialColor.LIGHT_GRAY_TERRACOTTA);
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> AIRWOOD_PLANKS = registerWoodenPlanks("airwood_planks", Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA, 5, 5);
     public static final BlockRegistryObject<BlockTitanRealmsStairs, ItemBlockStairs> AIRWOOD_STAIRS = registerWoodenStairs("airwood_stairs", AIRWOOD_PLANKS);
+    public static final BlockRegistryObject<SlabBlock, ItemBlockSlab> AIRWOOD_SLAB = BLOCKS.register("airwood_slab", () -> new SlabBlock(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA).hardnessAndResistance(2.0F, 5.0F).sound(SoundType.WOOD)), ItemBlockSlab::new);
 
     public static final BlockRegistryObject<BlockLog, ItemBlockLog> STORMWOOD_LOG = registerLogs("stormwood_log", MaterialColor.BLUE_TERRACOTTA, MaterialColor.GRAY);
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> STORMWOOD_PLANKS = registerWoodenPlanks("stormwood_planks", Material.WOOD, MaterialColor.GRAY, 5, 5);

@@ -1,6 +1,11 @@
 package sylvantus.titanrealms.datagen.common.loot.table;
 
+import mekanism.api.providers.IBlockProvider;
+import net.minecraft.block.SlabBlock;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TitanRealmsBlockLootTables extends BaseBlockLootTables {
 
@@ -13,6 +18,9 @@ public class TitanRealmsBlockLootTables extends BaseBlockLootTables {
         // registerLootTable(block -> droppingWithFortuneOrRandomly(block, MekanismItems.FLUORITE_GEM, RandomValueRange.of(2, 4)), MekanismBlocks.ORES.get(OreType.FLUORITE));
 
         //Register the remaining blocks as dropping themselves with any contents they may have stored
+        List<IBlockProvider> slabBlocks = TitanRealmsBlocks.BLOCKS.getAllBlocks().stream().filter(provider -> provider.getBlock() instanceof SlabBlock).collect(Collectors.toList());
+        slabBlocks.forEach(provider -> TitanRealmsBlockLootTables.droppingSlab(provider.getBlock()));
+
         registerDropSelfWithContentsLootTable(TitanRealmsBlocks.BLOCKS.getAllBlocks());
     }
 }
