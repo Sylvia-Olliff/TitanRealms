@@ -40,15 +40,22 @@ public class TitanRealmsBlocks {
         }
     }
 
-    // Aesir Blocks
+    /**
+     *   BEGIN AESIR BLOCKS
+     */
+
+    // Airwood blocks
     public static final BlockRegistryObject<BlockLog, ItemBlockLog> AIRWOOD_LOG = registerLogs("airwood_log", MaterialColor.CLAY, MaterialColor.LIGHT_GRAY_TERRACOTTA);
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> AIRWOOD_PLANKS = registerWoodenPlanks("airwood_planks", Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA, 5, 5);
     public static final BlockRegistryObject<BlockTitanRealmsStairs, ItemBlockStairs> AIRWOOD_STAIRS = registerWoodenStairs("airwood_stairs", AIRWOOD_PLANKS);
     public static final BlockRegistryObject<SlabBlock, ItemBlockSlab> AIRWOOD_SLAB = BLOCKS.register("airwood_slab", () -> new SlabBlock(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA).hardnessAndResistance(2.0F, 5.0F).sound(SoundType.WOOD)), ItemBlockSlab::new);
     public static final BlockRegistryObject<FenceBlock, ItemBlockFence> AIRWOOD_FENCE = BLOCKS.register("airwood_fence", () -> new FenceBlock(Block.Properties.from(AIRWOOD_PLANKS.getBlock())), ItemBlockFence::new);
     public static final BlockRegistryObject<FenceGateBlock, ItemBlockGate> AIRWOOD_GATE = BLOCKS.register("airwood_gate", () -> new FenceGateBlock(Block.Properties.from(AIRWOOD_PLANKS.getBlock())), ItemBlockGate::new);
+    public static final BlockRegistryObject<BlockWoodenButton, ItemBlockWoodenButton> AIRWOOD_BUTTON = BLOCKS.register("airwood_button", BlockWoodenButton::new, ItemBlockWoodenButton::new);
+    //public static final BlockRegistryObject<BlockWoodenDoor, ItemBlockWoodenDoor> AIRWOOD_DOOR = BLOCKS.register("airwood_door", () -> new BlockWoodenDoor(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_GRAY_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)), ItemBlockWoodenDoor::new);
+    public static final BlockRegistryObject<BlockWoodenPressurePlate, ItemBlockWoodenPressurePlate> AIRWOOD_PLATE = BLOCKS.register("airwood_plate", () -> new BlockWoodenPressurePlate(Block.Properties.create(Material.WOOD, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.WOOD).doesNotBlockMovement()), ItemBlockWoodenPressurePlate::new);
 
-
+    // Stormwood blocks
     public static final BlockRegistryObject<BlockLog, ItemBlockLog> STORMWOOD_LOG = registerLogs("stormwood_log", MaterialColor.BLUE_TERRACOTTA, MaterialColor.GRAY);
     public static final BlockRegistryObject<BlockFlammable, ItemBlockPlanks> STORMWOOD_PLANKS = registerWoodenPlanks("stormwood_planks", Material.WOOD, MaterialColor.GRAY, 5, 5);
 

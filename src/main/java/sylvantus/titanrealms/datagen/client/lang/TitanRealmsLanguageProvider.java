@@ -199,6 +199,9 @@ public class TitanRealmsLanguageProvider extends BaseLanguageProvider {
         add(TitanRealmsBlocks.AIRWOOD_SLAB, "Airwood Slab");
         add(TitanRealmsBlocks.AIRWOOD_FENCE, "Airwood Fence");
         add(TitanRealmsBlocks.AIRWOOD_GATE, "Airwood Gate");
+        add(TitanRealmsBlocks.AIRWOOD_BUTTON, "Airwood Button");
+        //add(TitanRealmsBlocks.AIRWOOD_DOOR, "Airwood Door");
+        add(TitanRealmsBlocks.AIRWOOD_PLATE, "Airwood Pressure Plate");
         add(TitanRealmsBlocks.STORMWOOD_LOG, "Stormwood Log");
         add(TitanRealmsBlocks.STORMWOOD_PLANKS, "Stormwood Planks");
     }

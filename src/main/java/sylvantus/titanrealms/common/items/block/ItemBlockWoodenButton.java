@@ -1,0 +1,11 @@
+package sylvantus.titanrealms.common.items.block;
+
+import sylvantus.titanrealms.common.blocks.basic.BlockWoodenButton;
+import sylvantus.titanrealms.core.registration.impl.ItemDeferredRegister;
+
+public class ItemBlockWoodenButton extends ItemBlockTitanRealms<BlockWoodenButton> {
+
+    public ItemBlockWoodenButton(BlockWoodenButton block) {
+        super(block, ItemDeferredRegister.getTRBaseProperties().maxStackSize(64));
+    }
+}

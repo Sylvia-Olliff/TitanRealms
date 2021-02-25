@@ -3,10 +3,7 @@ package sylvantus.titanrealms.datagen.client.state;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ModelTextures;
-import net.minecraft.state.properties.Half;
-import net.minecraft.state.properties.SlabType;
-import net.minecraft.state.properties.StairsShape;
+import net.minecraft.state.properties.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -14,20 +11,15 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import sylvantus.titanrealms.TitanRealms;
-import sylvantus.titanrealms.common.blocks.TitanRealmsBlock;
 import sylvantus.titanrealms.common.blocks.basic.BlockTerrain;
 import sylvantus.titanrealms.common.blocks.basic.BlockTerrainSoil;
-import sylvantus.titanrealms.common.items.block.ItemBlockTerrain;
 import sylvantus.titanrealms.common.items.block.ItemBlockTerrainSoil;
 import sylvantus.titanrealms.common.resources.BlockTerrainInfo;
-import sylvantus.titanrealms.common.resources.TerrainResource;
 import sylvantus.titanrealms.common.resources.TerrainType;
 import sylvantus.titanrealms.core.registration.impl.BlockRegistryObject;
 import sylvantus.titanrealms.core.registries.TitanRealmsBlocks;
 import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 import sylvantus.titanrealms.datagen.client.model.TitanRealmsBlockModelProvider;
-
-import java.util.Map;
 
 public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanRealmsBlockModelProvider> {
 
@@ -153,7 +145,9 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
                 TitanRealmsBlocks.AIRWOOD_STAIRS.getBlock(),
                 TitanRealmsBlocks.AIRWOOD_SLAB.getBlock(),
                 TitanRealmsBlocks.AIRWOOD_FENCE.getBlock(),
-                TitanRealmsBlocks.AIRWOOD_GATE.getBlock());
+                TitanRealmsBlocks.AIRWOOD_GATE.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_PLATE.getBlock(),
+                TitanRealmsBlocks.AIRWOOD_BUTTON.getBlock());
         registerLogSapling(TitanRealmsBlocks.STORMWOOD_LOG.getBlock());
     }
 
@@ -165,7 +159,7 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
 //        simpleBlock(sapling, models().cross(sapling.getRegistryName().getPath(), saplingTex));
     }
 
-    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs, Block slab, Block fence, Block gate) {
+    private void registerPlankBasedBlocks(String variant, Block plank, StairsBlock stairs, Block slab, Block fence, Block gate, Block plate, Block button) {
         String plankTexName = "planks_" + variant;
         ResourceLocation plankText_0 = TitanRealms.rl("block/planks/" + plankTexName + "_0");
         ResourceLocation plankText_1 = TitanRealms.rl("block/planks/" + plankTexName + "_1");
@@ -199,6 +193,9 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         generateWoodStairs(stairs, plankText_0, plankText_1, plankText_2, plankText_3);
         generateWoodFence(fence, plankText_0, plankText_1, plankText_2, plankText_3);
         generateWoodGate(gate, plankText_0, plankText_1, plankText_2, plankText_3);
+        generateWoodPlate(plate, plankText_0, plankText_1, plankText_2, plankText_3);
+        generateWoodButton(button, plankText_0, plankText_1, plankText_2, plankText_3);
+
     }
 
     private void generateWoodStairs(StairsBlock stairs, ResourceLocation plankText_0, ResourceLocation plankText_1,
@@ -346,6 +343,82 @@ public class TitanRealmsBlockStateProvider extends BaseBlockStateProvider<TitanR
         }, FenceGateBlock.POWERED);
 
         models().withExistingParent("item/" + gate.getRegistryName().getPath(), TitanRealms.rl("block/" + gate.getRegistryName().getPath()));
+    }
+
+    private void generateWoodPlate(Block plate, ResourceLocation plankText_0, ResourceLocation plankText_1,
+                                   ResourceLocation plankText_2, ResourceLocation plankText_3) {
+        ConfiguredModel[] unpressed = ConfiguredModel.builder()
+                .weight(10).modelFile(models().withExistingParent(plate.getRegistryName().getPath(), "pressure_plate_up").texture("texture", plankText_0)).nextModel()
+                .weight(10).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_1", "pressure_plate_up").texture("texture", plankText_1)).nextModel()
+                .weight(1).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_2", "pressure_plate_up").texture("texture", plankText_2)).nextModel()
+                .weight(1).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_3", "pressure_plate_up").texture("texture", plankText_3)).build();
+        ConfiguredModel[] pressed = ConfiguredModel.builder()
+                .weight(10).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_down", "pressure_plate_down").texture("texture", plankText_0)).nextModel()
+                .weight(10).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_down_1", "pressure_plate_down").texture("texture", plankText_1)).nextModel()
+                .weight(1).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_down_2", "pressure_plate_down").texture("texture", plankText_2)).nextModel()
+                .weight(1).modelFile(models().withExistingParent(plate.getRegistryName().getPath() + "_down_3", "pressure_plate_down").texture("texture", plankText_3)).build();
+
+        getVariantBuilder(plate).partialState().with(PressurePlateBlock.POWERED, false).setModels(unpressed);
+        getVariantBuilder(plate).partialState().with(PressurePlateBlock.POWERED, true).setModels(pressed);
+
+        models().withExistingParent("item/" + plate.getRegistryName().getPath(), TitanRealms.rl("block/" + plate.getRegistryName().getPath()));
+    }
+
+    private void generateWoodButton(Block button, ResourceLocation plankText_0, ResourceLocation plankText_1,
+                                    ResourceLocation plankText_2, ResourceLocation plankText_3) {
+        ModelFile unpressed_0 = models().withExistingParent(button.getRegistryName().getPath(), "button").texture("texture", plankText_0);
+        ModelFile pressed_0 = models().withExistingParent(button.getRegistryName().getPath() + "_pressed", "button_pressed").texture("texture", plankText_0);
+        ModelFile unpressed_1 = models().withExistingParent(button.getRegistryName().getPath() + "_1", "button").texture("texture", plankText_1);
+        ModelFile pressed_1 = models().withExistingParent(button.getRegistryName().getPath() + "_pressed_1", "button_pressed").texture("texture", plankText_1);
+        ModelFile unpressed_2 = models().withExistingParent(button.getRegistryName().getPath() + "_2", "button").texture("texture", plankText_2);
+        ModelFile pressed_2 = models().withExistingParent(button.getRegistryName().getPath() + "_pressed_2", "button_pressed").texture("texture", plankText_2);
+        ModelFile unpressed_3 = models().withExistingParent(button.getRegistryName().getPath() + "_3", "button").texture("texture", plankText_3);
+        ModelFile pressed_3 = models().withExistingParent(button.getRegistryName().getPath() + "_pressed_3", "button_pressed").texture("texture", plankText_3);
+
+        getVariantBuilder(button).forAllStates(state -> {
+            ModelFile model_0 = state.get(AbstractButtonBlock.POWERED) ? pressed_0 : unpressed_0;
+            ModelFile model_1 = state.get(AbstractButtonBlock.POWERED) ? pressed_1 : unpressed_1;
+            ModelFile model_2 = state.get(AbstractButtonBlock.POWERED) ? pressed_2 : unpressed_2;
+            ModelFile model_3 = state.get(AbstractButtonBlock.POWERED) ? pressed_3 : unpressed_3;
+            int rotX = 0;
+            switch (state.get(HorizontalFaceBlock.FACE)) {
+                case WALL:
+                    rotX = 90;
+                    break;
+                case FLOOR:
+                    rotX = 0;
+                    break;
+                case CEILING:
+                    rotX = 180;
+                    break;
+            }
+            int rotY = 0;
+            if (state.get(HorizontalFaceBlock.FACE) == AttachFace.CEILING)  {
+                switch (state.get(HorizontalBlock.HORIZONTAL_FACING)) {
+                    case NORTH: rotY = 180; break;
+                    case SOUTH: rotY = 0; break;
+                    case WEST: rotY = 90; break;
+                    case EAST: rotY = 270; break;
+                }
+            } else {
+                switch (state.get(HorizontalBlock.HORIZONTAL_FACING)) {
+                    case NORTH: rotY = 0; break;
+                    case SOUTH: rotY = 180; break;
+                    case WEST: rotY = 270; break;
+                    case EAST: rotY = 90; break;
+                }
+            }
+            boolean uvlock = state.get(HorizontalFaceBlock.FACE) == AttachFace.WALL;
+
+            return ConfiguredModel.builder()
+                    .weight(10).uvLock(uvlock).rotationX(rotX).rotationY(rotY).modelFile(model_0).nextModel()
+                    .weight(10).uvLock(uvlock).rotationX(rotX).rotationY(rotY).modelFile(model_1).nextModel()
+                    .weight(1).uvLock(uvlock).rotationX(rotX).rotationY(rotY).modelFile(model_2).nextModel()
+                    .weight(1).uvLock(uvlock).rotationX(rotX).rotationY(rotY).modelFile(model_3)
+                    .build();
+        });
+
+        models().withExistingParent("item/" + button.getRegistryName().getPath(), TitanRealms.rl("block/" + button.getRegistryName().getPath()));
     }
 
     private <R extends IResource> ModelFile buildDerivativeBlock(R blockInfo) {

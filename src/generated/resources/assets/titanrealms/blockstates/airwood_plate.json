@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "powered=false": [
+      {
+        "model": "titanrealms:block/airwood_plate",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_1",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_2"
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_3"
+      }
+    ],
+    "powered=true": [
+      {
+        "model": "titanrealms:block/airwood_plate_down",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_down_1",
+        "weight": 10
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_down_2"
+      },
+      {
+        "model": "titanrealms:block/airwood_plate_down_3"
+      }
+    ]
+  }
+}
