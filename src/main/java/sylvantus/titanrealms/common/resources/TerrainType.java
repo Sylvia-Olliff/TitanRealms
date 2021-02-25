@@ -3,7 +3,6 @@ package sylvantus.titanrealms.common.resources;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.IStringSerializable;
 import sylvantus.titanrealms.core.enums.DimensionRestrictions;
-import sylvantus.titanrealms.core.util.interfaces.blocks.IResource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
