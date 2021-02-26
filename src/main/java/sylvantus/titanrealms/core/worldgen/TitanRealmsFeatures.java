@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import sylvantus.titanrealms.TitanRealms;
 import sylvantus.titanrealms.core.worldgen.treeplacers.BranchingTrunkPlacer;
 import sylvantus.titanrealms.core.worldgen.treeplacers.TreeCorePlacer;
+import sylvantus.titanrealms.core.worldgen.treeplacers.TreeRootsDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public final class TitanRealmsFeatures {
     public static final TrunkPlacerType<BranchingTrunkPlacer> TRUNK_BRANCHING = registerTrunk(TitanRealms.rl("branching_trunk_placer"), BranchingTrunkPlacer.CODEC);
 
     public static final TreeDecoratorType<TreeCorePlacer> CORE_PLACER = registerTreeFeature(TitanRealms.rl("core_placer"), TreeCorePlacer.CODEC);
+    public static final TreeDecoratorType<TreeRootsDecorator> TREE_ROOTS = registerTreeFeature(TitanRealms.rl("tree_roots"), TreeRootsDecorator.CODEC);
 
     private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(ResourceLocation name, Codec<P> codec) {
         FoliagePlacerType<P> type = new FoliagePlacerType<>(codec);
