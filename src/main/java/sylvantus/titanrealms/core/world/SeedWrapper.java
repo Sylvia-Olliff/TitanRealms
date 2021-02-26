@@ -1,4 +1,4 @@
-package sylvantus.titanrealms.world;
+package sylvantus.titanrealms.core.world;
 
 public class SeedWrapper {
     private static long seed = 0;

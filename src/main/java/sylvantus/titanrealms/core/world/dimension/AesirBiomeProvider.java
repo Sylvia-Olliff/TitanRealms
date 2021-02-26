@@ -1,4 +1,4 @@
-package sylvantus.titanrealms.world.dimension;
+package sylvantus.titanrealms.core.world.dimension;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -12,7 +12,7 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.SimplexNoiseGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import sylvantus.titanrealms.world.SeedWrapper;
+import sylvantus.titanrealms.core.world.SeedWrapper;
 
 import java.util.*;
 import java.util.function.Supplier;
